@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerState.h"
-#include "PBPlayerState.generated.h"
+#include "GameFramework/HUD.h"
+#include "PBHUD.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROJECTB_API APBPlayerState : public APlayerState
+class PROJECTB_API APBHUD : public AHUD
 {
 	GENERATED_BODY()
 };
