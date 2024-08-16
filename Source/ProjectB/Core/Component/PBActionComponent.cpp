@@ -61,11 +61,11 @@ void UPBActionComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 					}
 					LastHitActor = HitActor;
 				}
-			}
-			else if (LastHitActor)
-			{
-				LastHitActor->SetOutline(false);
-				LastHitActor = nullptr;
+				else if (LastHitActor)
+				{
+					LastHitActor->SetOutline(false);
+					LastHitActor = nullptr;
+				}
 			}
 
 			DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Green, false, 1.0f, 0, 0.1f);
