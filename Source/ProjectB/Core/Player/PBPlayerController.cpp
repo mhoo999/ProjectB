@@ -4,6 +4,7 @@
 #include "PBPlayerController.h"
 
 #include "PBPlayerPawn.h"
+#include "ProjectB/Core/Component/PBActionComponent.h"
 #include "ProjectB/Core/Component/PBCameraComponent.h"
 
 
@@ -26,5 +27,9 @@ void APBPlayerController::BeginPlay()
 	if (UPBCameraComponent* CameraComponent =  PlayerPawn->GetComponentByClass<UPBCameraComponent>())
 	{
 		CameraComponent->InitPlayerController();
+	}
+	if (UPBActionComponent* ActionComponent = PlayerPawn->GetComponentByClass<UPBActionComponent>())
+	{
+		ActionComponent->InitPlayerController();
 	}
 }

@@ -8,6 +8,7 @@
 #include "PBActionComponent.generated.h"
 
 
+class IInteractable;
 class UInputAction;
 
 UCLASS()
@@ -32,4 +33,6 @@ private:
 	UInputAction* IA_Click;
 	
 	void Click(const FInputActionValue& Value);
+	
+	IInteractable* LastHitActor;
 };

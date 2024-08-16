@@ -3,6 +3,7 @@
 
 #include "PBCameraComponent.h"
 
+#include "ProjectB/ProjectB.h"
 #include "ProjectB/Core/Player/PBPlayerController.h"
 #include "ProjectB/Core/Player/PBPlayerPawn.h"
 

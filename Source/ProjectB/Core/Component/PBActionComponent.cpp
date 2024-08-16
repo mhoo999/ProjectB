@@ -3,6 +3,9 @@
 
 #include "PBActionComponent.h"
 #include "EnhancedInputComponent.h"
+#include "ProjectB/ProjectB.h"
+#include "ProjectB/Core/Interface/Interactable.h"
+#include "ProjectB/Core/Player/PBPlayerController.h"
 
 #include "ProjectB/Core/Player/PBPlayerPawn.h"
 
@@ -16,6 +19,8 @@ UPBActionComponent::UPBActionComponent()
 	{
 		IA_Click = IA_ClickRef.Object;
 	}
+
+	LastHitActor = nullptr;
 }
 
 void UPBActionComponent::BeginPlay()
@@ -26,6 +31,46 @@ void UPBActionComponent::BeginPlay()
 void UPBActionComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if (PlayerController)
+	{
+		FVector2d MousePosition;
+		PlayerController->GetMousePosition(MousePosition.X, MousePosition.Y);
+		FVector WorldLocation, WorldDirection;
+
+		if (PlayerController->DeprojectScreenPositionToWorld(MousePosition.X, MousePosition.Y, WorldLocation, WorldDirection))
+		{
+			FVector TraceStart = WorldLocation;
+			FVector TraceEnd = TraceStart + (WorldDirection * 1000.0f);
+
+			FHitResult HitResult;
+			FCollisionQueryParams Params;
+			Params.AddIgnoredActor(GetOwner());
+
+			if (GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECC_Visibility, Params))
+			{
+				IInteractable* HitActor = Cast<IInteractable>(HitResult.GetActor());
+				
+				if (HitActor)
+				{
+					HitActor->SetOutline(true);
+					
+					if (LastHitActor && LastHitActor != HitActor)
+					{
+						LastHitActor->SetOutline(false);
+					}
+					LastHitActor = HitActor;
+				}
+			}
+			else if (LastHitActor)
+			{
+				LastHitActor->SetOutline(false);
+				LastHitActor = nullptr;
+			}
+
+			DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Green, false, 1.0f, 0, 0.1f);
+		}
+	}
 }
 
 void UPBActionComponent::SetupPlayerInput(UInputComponent* PlayerInputComponent)
