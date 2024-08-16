@@ -6,6 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Camera/CameraComponent.h"
 #include "ProjectB/Core/Component/PBActionComponent.h"
+#include "ProjectB/Core/Component/PBCameraComponent.h"
 
 
 APBPlayerPawn::APBPlayerPawn()
@@ -19,6 +20,7 @@ APBPlayerPawn::APBPlayerPawn()
 	bUseControllerRotationYaw = true;
 
 	ActionComponent = CreateDefaultSubobject<UPBActionComponent>(TEXT("Action Component"));
+	CameraComponent = CreateDefaultSubobject<UPBCameraComponent>(TEXT("Camera Setting Component"));
 }
 
 void APBPlayerPawn::BeginPlay()

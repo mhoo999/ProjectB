@@ -7,6 +7,7 @@
 #include "PBPlayerComponentBase.generated.h"
 
 
+class APBPlayerController;
 class APBPlayerPawn;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -29,5 +30,11 @@ protected:
 	UPROPERTY()
 	APBPlayerPawn* PlayerPawn;
 
+	UPROPERTY()
+	APBPlayerController* PlayerController;
+
 	virtual void SetupPlayerInput(UInputComponent* PlayerInputComponent);
+
+public:
+	void InitPlayerController();
 };

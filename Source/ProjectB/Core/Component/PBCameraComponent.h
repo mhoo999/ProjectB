@@ -4,19 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "PBPlayerComponentBase.h"
-#include "InputActionValue.h"
-#include "PBActionComponent.generated.h"
+#include "PBCameraComponent.generated.h"
 
 
-class UInputAction;
-
-UCLASS()
-class PROJECTB_API UPBActionComponent : public UPBPlayerComponentBase
+UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+class PROJECTB_API UPBCameraComponent : public UPBPlayerComponentBase
 {
 	GENERATED_BODY()
 
 public:
-	UPBActionComponent();
+	UPBCameraComponent();
 
 protected:
 	virtual void BeginPlay() override;
@@ -24,12 +21,15 @@ protected:
 public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-protected:
-	virtual void SetupPlayerInput(UInputComponent* PlayerInputComponent) override;
-
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
-	UInputAction* IA_Click;
+	float MaxYawAngle = 20.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
+	float MaxPitchAngle = 20.0f;
 	
-	void Click(const FInputActionValue& Value);
+	FVector2D ViewportSize;
+	float MouseX;
+	float MouseY;
+	
 };

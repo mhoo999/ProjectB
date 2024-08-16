@@ -3,6 +3,7 @@
 
 #include "PBPlayerComponentBase.h"
 
+#include "ProjectB/Core/Player/PBPlayerController.h"
 #include "ProjectB/Core/Player/PBPlayerPawn.h"
 
 
@@ -33,5 +34,10 @@ void UPBPlayerComponentBase::InitializeComponent()
 void UPBPlayerComponentBase::SetupPlayerInput(UInputComponent* PlayerInputComponent)
 {
 	// virtual function
+}
+
+void UPBPlayerComponentBase::InitPlayerController()
+{
+	PlayerController = Cast<APBPlayerController>(PlayerPawn->GetController());
 }
 

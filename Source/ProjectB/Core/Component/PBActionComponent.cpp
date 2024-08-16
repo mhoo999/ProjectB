@@ -11,10 +11,10 @@ UPBActionComponent::UPBActionComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 
-	static ConstructorHelpers::FObjectFinder<UInputAction> IA_LookRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/IA_Look.IA_Look'"));
-	if (IA_LookRef.Succeeded())
+	static ConstructorHelpers::FObjectFinder<UInputAction> IA_ClickRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/IA_Click.IA_Click'"));
+	if (IA_ClickRef.Succeeded())
 	{
-		IA_Look = IA_LookRef.Object;
+		IA_Click = IA_ClickRef.Object;
 	}
 }
 
@@ -34,25 +34,11 @@ void UPBActionComponent::SetupPlayerInput(UInputComponent* PlayerInputComponent)
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		EnhancedInputComponent->BindAction(IA_Look, ETriggerEvent::Triggered, this, &UPBActionComponent::Look);
+		EnhancedInputComponent->BindAction(IA_Click, ETriggerEvent::Triggered, this, &UPBActionComponent::Click);
 	}
 }
 
-void UPBActionComponent::Look(const FInputActionValue& Value)
+void UPBActionComponent::Click(const FInputActionValue& Value)
 {
-	FVector2D LookAxisVector = Value.Get<FVector2D>();
-
-	LookAxisVector *= Sensitivity;
-
-	if (PlayerPawn->Controller != nullptr)
-	{
-		FRotator CurrentRotation = PlayerPawn->Controller->GetControlRotation();
-		float NewYaw = CurrentRotation.Yaw + LookAxisVector.X;
-		float NewPitch = CurrentRotation.Pitch + LookAxisVector.Y;
-
-		NewYaw = FMath::Clamp(NewYaw, MinAngle, MaxAngle);
-		NewPitch = FMath::Clamp(NewPitch, MinAngle, MaxAngle);
-		
-		PlayerPawn->Controller->SetControlRotation(FRotator(NewPitch, NewYaw, CurrentRotation.Roll));
-	}
+	// Click Event
 }

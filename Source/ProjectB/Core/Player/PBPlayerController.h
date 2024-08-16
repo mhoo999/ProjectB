@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "PBPlayerController.generated.h"
 
+class APBPlayerPawn;
 class UCameraComponent;
 /**
  * 
@@ -18,4 +19,7 @@ class PROJECTB_API APBPlayerController : public APlayerController
 	APBPlayerController();
 
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditDefaultsOnly)
+	APBPlayerPawn* PlayerPawn;
 };

@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "PBPlayerPawn.generated.h"
 
+class UPBCameraComponent;
 class UPBActionComponent;
 class UCameraComponent;
 class UInputMappingContext;
@@ -39,4 +40,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	UPBActionComponent* ActionComponent;
+
+	UPROPERTY(EditDefaultsOnly)
+	UPBCameraComponent* CameraComponent;
 };
