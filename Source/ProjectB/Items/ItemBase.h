@@ -22,11 +22,15 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 protected:
-	virtual void Interact() override;
+	virtual void Interact(APlayerController* Controller) override;
 
 	virtual void SetOutline(bool bOutlineEnabled) override;
 
 private:
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item", meta=(AllowPrivateAccess))
 	UStaticMeshComponent* MeshComponent;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item", meta=(AllowPrivateAccess))
+	FText ItemDescription;
+
 };

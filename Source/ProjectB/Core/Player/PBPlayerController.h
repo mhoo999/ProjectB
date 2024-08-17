@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "PBPlayerController.generated.h"
 
+class AItemBase;
 class APBPlayerPawn;
 class UCameraComponent;
 /**
@@ -22,4 +23,7 @@ class PROJECTB_API APBPlayerController : public APlayerController
 
 	UPROPERTY(EditDefaultsOnly)
 	APBPlayerPawn* PlayerPawn;
+
+public:
+	void ShowItemDetails(AItemBase* Item);
 };

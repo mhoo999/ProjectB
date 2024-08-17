@@ -33,6 +33,9 @@ private:
 	UInputAction* IA_Click;
 	
 	void Click(const FInputActionValue& Value);
-	
+
+	IInteractable* HitActor;
 	IInteractable* LastHitActor;
+
+	bool bIsUIOpen;
 };

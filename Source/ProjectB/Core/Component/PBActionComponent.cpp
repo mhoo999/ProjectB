@@ -32,43 +32,46 @@ void UPBActionComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (PlayerController)
+	if (!bIsUIOpen)
 	{
-		FVector2d MousePosition;
-		PlayerController->GetMousePosition(MousePosition.X, MousePosition.Y);
-		FVector WorldLocation, WorldDirection;
-
-		if (PlayerController->DeprojectScreenPositionToWorld(MousePosition.X, MousePosition.Y, WorldLocation, WorldDirection))
+		if (PlayerController)
 		{
-			FVector TraceStart = WorldLocation;
-			FVector TraceEnd = TraceStart + (WorldDirection * 1000.0f);
+			FVector2d MousePosition;
+			PlayerController->GetMousePosition(MousePosition.X, MousePosition.Y);
+			FVector WorldLocation, WorldDirection;
 
-			FHitResult HitResult;
-			FCollisionQueryParams Params;
-			Params.AddIgnoredActor(GetOwner());
-
-			if (GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECC_Visibility, Params))
+			if (PlayerController->DeprojectScreenPositionToWorld(MousePosition.X, MousePosition.Y, WorldLocation, WorldDirection))
 			{
-				IInteractable* HitActor = Cast<IInteractable>(HitResult.GetActor());
-				
-				if (HitActor)
+				FVector TraceStart = WorldLocation;
+				FVector TraceEnd = TraceStart + (WorldDirection * 1000.0f);
+
+				FHitResult HitResult;
+				FCollisionQueryParams Params;
+				Params.AddIgnoredActor(GetOwner());
+
+				if (GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECC_Visibility, Params))
 				{
-					HitActor->SetOutline(true);
+					HitActor = Cast<IInteractable>(HitResult.GetActor());
 					
-					if (LastHitActor && LastHitActor != HitActor)
+					if (HitActor)
+					{
+						HitActor->SetOutline(true);
+						
+						if (LastHitActor && LastHitActor != HitActor)
+						{
+							LastHitActor->SetOutline(false);
+						}
+						LastHitActor = HitActor;
+					}
+					else if (LastHitActor)
 					{
 						LastHitActor->SetOutline(false);
+						LastHitActor = nullptr;
 					}
-					LastHitActor = HitActor;
 				}
-				else if (LastHitActor)
-				{
-					LastHitActor->SetOutline(false);
-					LastHitActor = nullptr;
-				}
-			}
 
-			DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Green, false, 1.0f, 0, 0.1f);
+				DrawDebugLine(GetWorld(), TraceStart, TraceEnd, FColor::Green, false, 1.0f, 0, 0.1f);
+			}
 		}
 	}
 }
@@ -86,4 +89,8 @@ void UPBActionComponent::SetupPlayerInput(UInputComponent* PlayerInputComponent)
 void UPBActionComponent::Click(const FInputActionValue& Value)
 {
 	// Click Event
+	if (HitActor)
+	{
+		HitActor->Interact(PlayerController);
+	}
 }

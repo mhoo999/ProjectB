@@ -6,6 +6,7 @@
 #include "PBPlayerPawn.h"
 #include "ProjectB/Core/Component/PBActionComponent.h"
 #include "ProjectB/Core/Component/PBCameraComponent.h"
+#include "ProjectB/Core/UI/PBHUD.h"
 
 
 APBPlayerController::APBPlayerController()
@@ -31,5 +32,13 @@ void APBPlayerController::BeginPlay()
 	if (UPBActionComponent* ActionComponent = PlayerPawn->GetComponentByClass<UPBActionComponent>())
 	{
 		ActionComponent->InitPlayerController();
+	}
+}
+
+void APBPlayerController::ShowItemDetails(AItemBase* Item)
+{
+	if (APBHUD* PlayerHUD = Cast<APBHUD>(GetHUD()))
+	{
+		PlayerHUD->ShowItemDetailsWidget(Item);
 	}
 }

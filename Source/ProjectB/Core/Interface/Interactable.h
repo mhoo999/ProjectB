@@ -20,7 +20,7 @@ class PROJECTB_API IInteractable
 	GENERATED_BODY()
 
 public:
-	virtual void Interact() = 0;
+	virtual void Interact(APlayerController* Controller) = 0;
 
 	virtual void SetOutline(bool bOutlineEnabled) = 0;
 };
