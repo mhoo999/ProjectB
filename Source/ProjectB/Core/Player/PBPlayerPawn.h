@@ -34,10 +34,7 @@ public:
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
 	UCameraComponent* PlayerCamera;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
-	UInputMappingContext* DefaultMappingContext;
-
+	
 	UPROPERTY(EditDefaultsOnly)
 	UPBActionComponent* ActionComponent;
 

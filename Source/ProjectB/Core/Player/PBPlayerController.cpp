@@ -3,6 +3,7 @@
 
 #include "PBPlayerController.h"
 
+#include "EnhancedInputSubsystems.h"
 #include "PBPlayerPawn.h"
 #include "ProjectB/Core/Component/PBActionComponent.h"
 #include "ProjectB/Core/Component/PBCameraComponent.h"
@@ -16,7 +17,7 @@ APBPlayerController::APBPlayerController()
 void APBPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	bShowMouseCursor = true;
 	
 	FInputModeGameAndUI InputMode;
@@ -32,6 +33,16 @@ void APBPlayerController::BeginPlay()
 	if (UPBActionComponent* ActionComponent = PlayerPawn->GetComponentByClass<UPBActionComponent>())
 	{
 		ActionComponent->InitPlayerController();
+	}
+}
+
+void APBPlayerController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		Subsystem->AddMappingContext(DefaultMappingContext, 0);
 	}
 }
 

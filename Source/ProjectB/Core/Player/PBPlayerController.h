@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "PBPlayerController.generated.h"
 
+class UInputMappingContext;
 class AItemBase;
 class APBPlayerPawn;
 class UCameraComponent;
@@ -27,6 +28,11 @@ public:
 private:
 	virtual void BeginPlay() override;
 
+	virtual void OnPossess(APawn* InPawn) override;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
+	UInputMappingContext* DefaultMappingContext;
+	
 	UPROPERTY(EditDefaultsOnly)
 	APBPlayerPawn* PlayerPawn;
 
