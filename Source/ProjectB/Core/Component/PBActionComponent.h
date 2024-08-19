@@ -36,6 +36,5 @@ private:
 
 	IInteractable* HitActor;
 	IInteractable* LastHitActor;
-
-	bool bIsUIOpen;
+	
 };

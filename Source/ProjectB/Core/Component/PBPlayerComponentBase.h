@@ -35,6 +35,12 @@ protected:
 
 	virtual void SetupPlayerInput(UInputComponent* PlayerInputComponent);
 
+	bool bPauseFunction;
+	
 public:
 	void InitPlayerController();
+
+private:
+	UFUNCTION()
+	void ChangePauseFunctionFromController(bool bIsUIOpen);
 };

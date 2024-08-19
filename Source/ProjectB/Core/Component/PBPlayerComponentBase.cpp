@@ -16,6 +16,11 @@ UPBPlayerComponentBase::UPBPlayerComponentBase()
 void UPBPlayerComponentBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (PlayerController)
+	{
+		PlayerController->UIOpenDelegate.AddDynamic(this, &UPBPlayerComponentBase::ChangePauseFunctionFromController);
+	}
 }
 
 void UPBPlayerComponentBase::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -39,5 +44,10 @@ void UPBPlayerComponentBase::SetupPlayerInput(UInputComponent* PlayerInputCompon
 void UPBPlayerComponentBase::InitPlayerController()
 {
 	PlayerController = Cast<APBPlayerController>(PlayerPawn->GetController());
+}
+
+void UPBPlayerComponentBase::ChangePauseFunctionFromController(bool bIsUIOpen)
+{
+	bPauseFunction = bIsUIOpen;
 }
 

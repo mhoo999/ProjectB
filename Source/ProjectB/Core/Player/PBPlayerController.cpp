@@ -37,8 +37,22 @@ void APBPlayerController::BeginPlay()
 
 void APBPlayerController::ShowItemDetails(AItemBase* Item)
 {
+	SetUIOpenTrue();
+	
 	if (APBHUD* PlayerHUD = Cast<APBHUD>(GetHUD()))
 	{
 		PlayerHUD->ShowItemDetailsWidget(Item);
 	}
+}
+
+void APBPlayerController::SetUIOpenTrue()
+{
+	bIsUIOpen = true;
+	UIOpenDelegate.Broadcast(bIsUIOpen);
+}
+
+void APBPlayerController::SetUIOpenFalse()
+{
+	bIsUIOpen = false;
+	UIOpenDelegate.Broadcast(bIsUIOpen);
 }

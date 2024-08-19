@@ -9,11 +9,6 @@
 
 APBHUD::APBHUD()
 {
-	static ConstructorHelpers::FClassFinder<UUIItemDetails> ItemDetailsWidgetAsset(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/ProjectB/UI/WBP_ItemDetails.WBP_ItemDetails'"));
-	if (ItemDetailsWidgetAsset.Succeeded())
-	{
-		ItemDetailsClass = ItemDetailsWidgetAsset.Class;
-	}
 	
 }
 
@@ -37,4 +32,5 @@ void APBHUD::BeginPlay()
 void APBHUD::ShowItemDetailsWidget(AItemBase* Item)
 {
 	ItemDetailsWidget->SetVisibility(ESlateVisibility::Visible);
+	
 }

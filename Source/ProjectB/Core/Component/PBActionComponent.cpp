@@ -32,7 +32,7 @@ void UPBActionComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (!bIsUIOpen)
+	if (bPauseFunction == false)
 	{
 		if (PlayerController)
 		{
