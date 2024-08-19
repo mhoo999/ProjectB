@@ -5,11 +5,14 @@
 
 #include "EnhancedInputSubsystems.h"
 #include "PBPlayerPawn.h"
+#include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "ProjectB/ProjectB.h"
 #include "ProjectB/Core/Component/PBActionComponent.h"
 #include "ProjectB/Core/Component/PBCameraComponent.h"
+#include "ProjectB/Core/UI/InspectWidget.h"
 #include "ProjectB/Core/UI/PBHUD.h"
+#include "ProjectB/InspectionSystem/PBInspectItem.h"
 #include "ProjectB/Items/PBItemBase.h"
 
 
@@ -49,7 +52,7 @@ void APBPlayerController::OnPossess(APawn* InPawn)
 	}
 }
 
-void APBPlayerController::ItemInspection(APBItemBase* Item)
+void APBPlayerController::ItemInspection(UStaticMesh* StaticMesh, FText ItemName, FText ItemDescription)
 {
 	SetUIOpenTrue();
 	
@@ -59,23 +62,26 @@ void APBPlayerController::ItemInspection(APBItemBase* Item)
 		Subsystem->AddMappingContext(ItemInspectionContext, 0);
 	}
 	
-	if (APBHUD* PlayerHUD = Cast<APBHUD>(GetHUD()))
+	if (IsValid(InspectClass))
 	{
-		PlayerHUD->ShowBlurUI();
+		InspectWidget = Cast<UInspectWidget>(CreateWidget(GetWorld(), InspectClass));
+
+		if (IsValid(InspectWidget))
+		{
+			InspectWidget->AddToViewport();
+			InspectWidget->SetItemInfo(ItemName, ItemDescription);
+		}
 	}
 
-	if (Item && Item->GetStaticMeshComponent())
+	FVector NewLocation = FVector(100000000.f, 0.f, 0.f);
+	FRotator NewRotation = FRotator(0.f, 0.f, 0.f);
+	FTransform NewTransform = FTransform(NewRotation, NewLocation);
+	FActorSpawnParameters SpawnInfo;
+	
+	if (APBInspectItem* SpawnItem = GetWorld()->SpawnActor<APBInspectItem>(InspectItemFactory, NewTransform, SpawnInfo))
 	{
-		FVector NewLocation = FVector(200.f, 0.f, 0.f);
-		FRotator NewRotation = FRotator(0.f, 0.f, 0.f);
-		FTransform NewTransform = FTransform(NewRotation, NewLocation);
-		FActorSpawnParameters SpawnInfo;
-
-		if (APBItemBase* SpawnItem = GetWorld()->SpawnActor<APBItemBase>(Item->GetClass(), NewTransform, SpawnInfo))
-		{
-			SpawnItem->GetStaticMeshComponent()->SetStaticMesh(Item->GetStaticMeshComponent()->GetStaticMesh());
-			PBLOG_S(Warning);
-		}
+		SpawnItem->GetStaticMeshComponent()->SetStaticMesh(StaticMesh);
+		PBLOG_S(Warning);
 	}
 }
 

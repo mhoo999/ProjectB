@@ -28,22 +28,14 @@ void APBItemBase::Tick(float DeltaTime)
 
 void APBItemBase::Interact(APlayerController* Controller)
 {
-	// PlayerController에 this를 전달하고
-	// this를 인수로 HUD ItemUI를 출력한다
-	// this는 메시와 출력 문장, 선택 UI
 	if (APBPlayerController* PlayerController = Cast<APBPlayerController>(Controller))
 	{
-		PlayerController->ItemInspection(this);
+		PlayerController->ItemInspection(MeshComponent->GetStaticMesh(), ItemName, ItemDescription);
 	}
 }
 
 void APBItemBase::SetOutline(bool bOutlineEnabled)
 {
 	MeshComponent->SetRenderCustomDepth(bOutlineEnabled);
-}
-
-UStaticMeshComponent* APBItemBase::GetStaticMeshComponent()
-{
-	return MeshComponent;
 }
 

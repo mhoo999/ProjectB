@@ -29,11 +29,11 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item", meta=(AllowPrivateAccess))
 	UStaticMeshComponent* MeshComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item", meta=(AllowPrivateAccess))
+	FText ItemName;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item", meta=(AllowPrivateAccess))
 	FText ItemDescription;
-
-public:
-	UStaticMeshComponent* GetStaticMeshComponent();
 
 };

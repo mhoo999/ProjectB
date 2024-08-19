@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "PBPlayerController.generated.h"
 
+class UInspectWidget;
+class APBInspectItem;
 class UInputMappingContext;
 class APBItemBase;
 class APBPlayerPawn;
@@ -41,8 +43,15 @@ private:
 
 	bool bIsUIOpen;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="InspectionSystem", meta=(AllowPrivateAccess))
+	TSubclassOf<APBInspectItem> InspectItemFactory;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="InspectionSystem", meta=(AllowPrivateAccess))
+	TSubclassOf<UInspectWidget> InspectClass;
+	UInspectWidget* InspectWidget;
+
 public:
-	void ItemInspection(APBItemBase* Item);
+	void ItemInspection(UStaticMesh* StaticMesh, FText ItemName, FText ItemDescription);
 
 	void SetUIOpenTrue();
 	void SetUIOpenFalse();

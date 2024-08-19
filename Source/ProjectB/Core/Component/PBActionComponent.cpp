@@ -128,6 +128,7 @@ void UPBActionComponent::Click_Default(const FInputActionValue& Value)
 	if (HitActor)
 	{
 		HitActor->Interact(PlayerController);
+		HitActor->SetOutline(false);
 	}
 }
 
