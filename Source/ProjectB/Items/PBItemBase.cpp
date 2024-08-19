@@ -1,12 +1,12 @@
 ﻿// Copyright © 2024, ProjectB. All rights reserved.
 
 
-#include "ItemBase.h"
+#include "PBItemBase.h"
 
 #include "ProjectB/Core/Player/PBPlayerController.h"
 
 
-AItemBase::AItemBase()
+APBItemBase::APBItemBase()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -16,17 +16,17 @@ AItemBase::AItemBase()
 	MeshComponent->SetCustomDepthStencilValue(1);
 }
 
-void AItemBase::BeginPlay()
+void APBItemBase::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-void AItemBase::Tick(float DeltaTime)
+void APBItemBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
-void AItemBase::Interact(APlayerController* Controller)
+void APBItemBase::Interact(APlayerController* Controller)
 {
 	// PlayerController에 this를 전달하고
 	// this를 인수로 HUD ItemUI를 출력한다
@@ -37,8 +37,13 @@ void AItemBase::Interact(APlayerController* Controller)
 	}
 }
 
-void AItemBase::SetOutline(bool bOutlineEnabled)
+void APBItemBase::SetOutline(bool bOutlineEnabled)
 {
 	MeshComponent->SetRenderCustomDepth(bOutlineEnabled);
+}
+
+UStaticMeshComponent* APBItemBase::GetStaticMeshComponent()
+{
+	return MeshComponent;
 }
 

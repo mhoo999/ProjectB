@@ -5,9 +5,12 @@
 
 #include "EnhancedInputSubsystems.h"
 #include "PBPlayerPawn.h"
+#include "Kismet/GameplayStatics.h"
+#include "ProjectB/ProjectB.h"
 #include "ProjectB/Core/Component/PBActionComponent.h"
 #include "ProjectB/Core/Component/PBCameraComponent.h"
 #include "ProjectB/Core/UI/PBHUD.h"
+#include "ProjectB/Items/PBItemBase.h"
 
 
 APBPlayerController::APBPlayerController()
@@ -46,7 +49,7 @@ void APBPlayerController::OnPossess(APawn* InPawn)
 	}
 }
 
-void APBPlayerController::ItemInspection(AItemBase* Item)
+void APBPlayerController::ItemInspection(APBItemBase* Item)
 {
 	SetUIOpenTrue();
 	
@@ -61,7 +64,19 @@ void APBPlayerController::ItemInspection(AItemBase* Item)
 		PlayerHUD->ShowBlurUI();
 	}
 
-	
+	if (Item && Item->GetStaticMeshComponent())
+	{
+		FVector NewLocation = FVector(200.f, 0.f, 0.f);
+		FRotator NewRotation = FRotator(0.f, 0.f, 0.f);
+		FTransform NewTransform = FTransform(NewRotation, NewLocation);
+		FActorSpawnParameters SpawnInfo;
+
+		if (APBItemBase* SpawnItem = GetWorld()->SpawnActor<APBItemBase>(Item->GetClass(), NewTransform, SpawnInfo))
+		{
+			SpawnItem->GetStaticMeshComponent()->SetStaticMesh(Item->GetStaticMeshComponent()->GetStaticMesh());
+			PBLOG_S(Warning);
+		}
+	}
 }
 
 void APBPlayerController::SetUIOpenTrue()

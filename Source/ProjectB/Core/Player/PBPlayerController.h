@@ -7,7 +7,7 @@
 #include "PBPlayerController.generated.h"
 
 class UInputMappingContext;
-class AItemBase;
+class APBItemBase;
 class APBPlayerPawn;
 class UCameraComponent;
 /**
@@ -42,7 +42,7 @@ private:
 	bool bIsUIOpen;
 
 public:
-	void ItemInspection(AItemBase* Item);
+	void ItemInspection(APBItemBase* Item);
 
 	void SetUIOpenTrue();
 	void SetUIOpenFalse();

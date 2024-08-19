@@ -5,7 +5,7 @@
 
 #include "UIBlur.h"
 #include "Blueprint/UserWidget.h"
-#include "ProjectB/Items/ItemBase.h"
+#include "ProjectB/Items/PBItemBase.h"
 
 APBHUD::APBHUD()
 {

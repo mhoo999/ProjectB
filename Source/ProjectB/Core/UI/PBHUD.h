@@ -6,7 +6,7 @@
 #include "GameFramework/HUD.h"
 #include "PBHUD.generated.h"
 
-class AItemBase;
+class APBItemBase;
 class UUIBlur;
 /**
  * 

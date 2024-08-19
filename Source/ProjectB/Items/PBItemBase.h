@@ -5,15 +5,15 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "ProjectB/Core/Interface/Interactable.h"
-#include "ItemBase.generated.h"
+#include "PBItemBase.generated.h"
 
 UCLASS()
-class PROJECTB_API AItemBase : public AActor, public IInteractable
+class PROJECTB_API APBItemBase : public AActor, public IInteractable
 {
 	GENERATED_BODY()
 
 public:
-	AItemBase();
+	APBItemBase();
 
 protected:
 	virtual void BeginPlay() override;
@@ -32,5 +32,8 @@ private:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item", meta=(AllowPrivateAccess))
 	FText ItemDescription;
+
+public:
+	UStaticMeshComponent* GetStaticMeshComponent();
 
 };
