@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "UIItemDetails.generated.h"
+#include "UIBlur.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PROJECTB_API UUIItemDetails : public UUserWidget
+class PROJECTB_API UUIBlur : public UUserWidget
 {
 	GENERATED_BODY()
 

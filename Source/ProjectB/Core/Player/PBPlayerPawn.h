@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "PBPlayerPawn.generated.h"
 
+class UPBItemInspectionComponent;
 class UPBCameraComponent;
 class UPBActionComponent;
 class UCameraComponent;
@@ -32,12 +33,12 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="Settings", meta=(AllowPrivateAccess))
 	UCameraComponent* PlayerCamera;
 	
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="Settings", meta=(AllowPrivateAccess))
 	UPBActionComponent* ActionComponent;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="Settings", meta=(AllowPrivateAccess))
 	UPBCameraComponent* CameraComponent;
 };

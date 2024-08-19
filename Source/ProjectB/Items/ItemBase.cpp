@@ -33,7 +33,7 @@ void AItemBase::Interact(APlayerController* Controller)
 	// this는 메시와 출력 문장, 선택 UI
 	if (APBPlayerController* PlayerController = Cast<APBPlayerController>(Controller))
 	{
-		PlayerController->ShowItemDetails(this);
+		PlayerController->ItemInspection(this);
 	}
 }
 

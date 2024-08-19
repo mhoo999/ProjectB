@@ -46,14 +46,22 @@ void APBPlayerController::OnPossess(APawn* InPawn)
 	}
 }
 
-void APBPlayerController::ShowItemDetails(AItemBase* Item)
+void APBPlayerController::ItemInspection(AItemBase* Item)
 {
 	SetUIOpenTrue();
 	
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		Subsystem->RemoveMappingContext(DefaultMappingContext);
+		Subsystem->AddMappingContext(ItemInspectionContext, 0);
+	}
+	
 	if (APBHUD* PlayerHUD = Cast<APBHUD>(GetHUD()))
 	{
-		PlayerHUD->ShowItemDetailsWidget(Item);
+		PlayerHUD->ShowBlurUI();
 	}
+
+	
 }
 
 void APBPlayerController::SetUIOpenTrue()
@@ -66,4 +74,10 @@ void APBPlayerController::SetUIOpenFalse()
 {
 	bIsUIOpen = false;
 	UIOpenDelegate.Broadcast(bIsUIOpen);
+
+	// if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	// {
+	// 	Subsystem->RemoveMappingContext(ItemInspectionContext);
+	// 	Subsystem->AddMappingContext(DefaultMappingContext, 0);
+	// }
 }

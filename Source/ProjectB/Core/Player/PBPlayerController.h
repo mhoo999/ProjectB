@@ -32,6 +32,9 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
 	UInputMappingContext* DefaultMappingContext;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
+	UInputMappingContext* ItemInspectionContext;
 	
 	UPROPERTY(EditDefaultsOnly)
 	APBPlayerPawn* PlayerPawn;
@@ -39,7 +42,7 @@ private:
 	bool bIsUIOpen;
 
 public:
-	void ShowItemDetails(AItemBase* Item);
+	void ItemInspection(AItemBase* Item);
 
 	void SetUIOpenTrue();
 	void SetUIOpenFalse();

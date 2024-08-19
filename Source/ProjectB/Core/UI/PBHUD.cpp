@@ -3,7 +3,7 @@
 
 #include "PBHUD.h"
 
-#include "UIItemDetails.h"
+#include "UIBlur.h"
 #include "Blueprint/UserWidget.h"
 #include "ProjectB/Items/ItemBase.h"
 
@@ -16,21 +16,20 @@ void APBHUD::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (IsValid(ItemDetailsClass))
+	if (IsValid(BlurUIClass))
 	{
-		ItemDetailsWidget = Cast<UUIItemDetails>(CreateWidget(GetWorld(), ItemDetailsClass));
+		BlurUIWidget = Cast<UUIBlur>(CreateWidget(GetWorld(), BlurUIClass));
 
-		if (IsValid(ItemDetailsWidget))
+		if (IsValid(BlurUIWidget))
 		{
-			ItemDetailsWidget->AddToViewport();
-			ItemDetailsWidget->SetVisibility(ESlateVisibility::Hidden);
+			BlurUIWidget->AddToViewport();
+			BlurUIWidget->SetVisibility(ESlateVisibility::Hidden);
 		}
 	}
 	
 }
 
-void APBHUD::ShowItemDetailsWidget(AItemBase* Item)
+void APBHUD::ShowBlurUI()
 {
-	ItemDetailsWidget->SetVisibility(ESlateVisibility::Visible);
-	
+	BlurUIWidget->SetVisibility(ESlateVisibility::Visible);
 }

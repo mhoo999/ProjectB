@@ -7,7 +7,7 @@
 #include "PBHUD.generated.h"
 
 class AItemBase;
-class UUIItemDetails;
+class UUIBlur;
 /**
  * 
  */
@@ -21,9 +21,9 @@ class PROJECTB_API APBHUD : public AHUD
 	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="ItemUI", meta=(AllowPrivateAccess))
-	TSubclassOf<UUIItemDetails> ItemDetailsClass;
-	UUIItemDetails* ItemDetailsWidget;
+	TSubclassOf<UUIBlur> BlurUIClass;
+	UUIBlur* BlurUIWidget;
 
 public:
-	void ShowItemDetailsWidget(AItemBase* Item);
+	void ShowBlurUI();
 };
