@@ -27,13 +27,18 @@ protected:
 	virtual void SetOutline(bool bOutlineEnabled) override;
 
 private:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item", meta=(AllowPrivateAccess))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Component", meta=(AllowPrivateAccess))
 	UStaticMeshComponent* MeshComponent;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item", meta=(AllowPrivateAccess))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="ItemInfo", meta=(AllowPrivateAccess))
+	UStaticMesh* ItemMesh;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="ItemInfo", meta=(AllowPrivateAccess))
 	FText ItemName;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item", meta=(AllowPrivateAccess))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="ItemInfo", meta=(AllowPrivateAccess))
 	FText ItemDescription;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="ItemInfo", meta=(AllowPrivateAccess))
+	FVector ItemScale;
 };

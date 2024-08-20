@@ -29,7 +29,7 @@ protected:
 	virtual void SetupPlayerInput(UInputComponent* PlayerInputComponent) override;
 
 private:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Default", meta=(AllowPrivateAccess))
 	UInputAction* IA_Click_Default;
 
 	void Click_Default(const FInputActionValue& Value);
@@ -38,27 +38,31 @@ private:
 	IInteractable* LastHitActor;
 
 private:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
-	UInputAction* IA_Click_Item;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
+	UInputAction* IA_Click_Ispection;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
-	UInputAction* IA_MouseX_Item;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
+	UInputAction* IA_MouseX_Ispection;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
-	UInputAction* IA_MouseY_Item;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
+	UInputAction* IA_MouseY_Ispection;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
-	UInputAction* IA_WheelUp_Item;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
+	UInputAction* IA_WheelUp_Ispection;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
-	UInputAction* IA_WheelDown_Item;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
+	UInputAction* IA_WheelDown_Ispection;
 
-	void Press_Item(const FInputActionValue& Value);
-	void Release_Item(const FInputActionValue& Value);
-	void MouseX_Item(const FInputActionValue& Value);
-	void MouseY_Item(const FInputActionValue& Value);
-	void WheelUp_Item(const FInputActionValue& Value);
-	void WheelDown_Item(const FInputActionValue& Value);
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
+	UInputAction* IA_Quit_Ispection;
+
+	void Press_Inspection(const FInputActionValue& Value);
+	void Release_Inspection(const FInputActionValue& Value);
+	void MouseX_Inspection(const FInputActionValue& Value);
+	void MouseY_Inspection(const FInputActionValue& Value);
+	void WheelUp_Inspection(const FInputActionValue& Value);
+	void WheelDown_Inspection(const FInputActionValue& Value);
+	void Quit_Inspection(const FInputActionValue& Value);
 
 	bool bIsRotation;
 };

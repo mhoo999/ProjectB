@@ -20,36 +20,43 @@ UPBActionComponent::UPBActionComponent()
 		IA_Click_Default = ClickDefaultRef.Object;
 	}
 
-	static ConstructorHelpers::FObjectFinder<UInputAction> ClickItemRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_Click_Item.IA_Click_Item'"));
-	if (ClickItemRef.Succeeded())
+	static ConstructorHelpers::FObjectFinder<UInputAction> ClickInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_Click_Inspect.IA_Click_Inspect'"));
+	if (ClickInspectRef.Succeeded())
 	{
-		IA_Click_Item = ClickItemRef.Object;
+		IA_Click_Ispection = ClickInspectRef.Object;
 	}
 
-	static ConstructorHelpers::FObjectFinder<UInputAction> MouseXItemRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_MouseX_Item.IA_MouseX_Item'"));
-	if (MouseXItemRef.Succeeded())
+	static ConstructorHelpers::FObjectFinder<UInputAction> MouseXInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_MouseX_Inspect.IA_MouseX_Inspect'"));
+	if (MouseXInspectRef.Succeeded())
 	{
-		IA_MouseX_Item = MouseXItemRef.Object;
+		IA_MouseX_Ispection = MouseXInspectRef.Object;
 	}
 
-	static ConstructorHelpers::FObjectFinder<UInputAction> MouseYItemRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_MouseY_Item.IA_MouseY_Item'"));
-	if (MouseYItemRef.Succeeded())
+	static ConstructorHelpers::FObjectFinder<UInputAction> MouseYInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_MouseY_Inspect.IA_MouseY_Inspect'"));
+	if (MouseYInspectRef.Succeeded())
 	{
-		IA_MouseY_Item = MouseYItemRef.Object;
+		IA_MouseY_Ispection = MouseYInspectRef.Object;
 	}
 
-	static ConstructorHelpers::FObjectFinder<UInputAction> WheelUpItemRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_WheelDown_Item.IA_WheelDown_Item'"));
-	if (WheelUpItemRef.Succeeded())
+	static ConstructorHelpers::FObjectFinder<UInputAction> WheelUpInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_WheelUp_Inspect.IA_WheelUp_Inspect'"));
+	if (WheelUpInspectRef.Succeeded())
 	{
-		IA_WheelUp_Item = WheelUpItemRef.Object;
+		IA_WheelUp_Ispection = WheelUpInspectRef.Object;
 	}
 
-	static ConstructorHelpers::FObjectFinder<UInputAction> WheelDownItemRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_WheelUp_Item.IA_WheelUp_Item'"));
-	if (WheelDownItemRef.Succeeded())
+	static ConstructorHelpers::FObjectFinder<UInputAction> WheelDownInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_WheelDown_Inspect.IA_WheelDown_Inspect'"));
+	if (WheelDownInspectRef.Succeeded())
 	{
-		IA_WheelDown_Item = WheelDownItemRef.Object;
+		IA_WheelDown_Ispection = WheelDownInspectRef.Object;
+	}
+	
+	static ConstructorHelpers::FObjectFinder<UInputAction> QuitInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_Quit_Inspect.IA_Quit_Inspect'"));
+	if (QuitInspectRef.Succeeded())
+	{
+		IA_Quit_Ispection = QuitInspectRef.Object;
 	}
 
+	
 	LastHitActor = nullptr;
 }
 
@@ -114,12 +121,13 @@ void UPBActionComponent::SetupPlayerInput(UInputComponent* PlayerInputComponent)
 	{
 		EnhancedInputComponent->BindAction(IA_Click_Default, ETriggerEvent::Started, this, &UPBActionComponent::Click_Default);
 
-		EnhancedInputComponent->BindAction(IA_Click_Item, ETriggerEvent::Started, this, &UPBActionComponent::Press_Item);
-		EnhancedInputComponent->BindAction(IA_Click_Item, ETriggerEvent::Completed, this, &UPBActionComponent::Release_Item);
-		EnhancedInputComponent->BindAction(IA_MouseX_Item, ETriggerEvent::Triggered, this, &UPBActionComponent::MouseX_Item);
-		EnhancedInputComponent->BindAction(IA_MouseY_Item, ETriggerEvent::Triggered, this, &UPBActionComponent::MouseY_Item);
-		EnhancedInputComponent->BindAction(IA_WheelUp_Item, ETriggerEvent::Started, this, &UPBActionComponent::WheelUp_Item);
-		EnhancedInputComponent->BindAction(IA_WheelDown_Item, ETriggerEvent::Started, this, &UPBActionComponent::WheelDown_Item);
+		EnhancedInputComponent->BindAction(IA_Click_Ispection, ETriggerEvent::Started, this, &UPBActionComponent::Press_Inspection);
+		EnhancedInputComponent->BindAction(IA_Click_Ispection, ETriggerEvent::Completed, this, &UPBActionComponent::Release_Inspection);
+		EnhancedInputComponent->BindAction(IA_MouseX_Ispection, ETriggerEvent::Triggered, this, &UPBActionComponent::MouseX_Inspection);
+		EnhancedInputComponent->BindAction(IA_MouseY_Ispection, ETriggerEvent::Triggered, this, &UPBActionComponent::MouseY_Inspection);
+		EnhancedInputComponent->BindAction(IA_WheelUp_Ispection, ETriggerEvent::Started, this, &UPBActionComponent::WheelUp_Inspection);
+		EnhancedInputComponent->BindAction(IA_WheelDown_Ispection, ETriggerEvent::Started, this, &UPBActionComponent::WheelDown_Inspection);
+		EnhancedInputComponent->BindAction(IA_Quit_Ispection, ETriggerEvent::Started, this, &UPBActionComponent::Quit_Inspection);
 	}
 }
 
@@ -132,17 +140,17 @@ void UPBActionComponent::Click_Default(const FInputActionValue& Value)
 	}
 }
 
-void UPBActionComponent::Press_Item(const FInputActionValue& Value)
+void UPBActionComponent::Press_Inspection(const FInputActionValue& Value)
 {
 	bIsRotation = true;
 }
 
-void UPBActionComponent::Release_Item(const FInputActionValue& Value)
+void UPBActionComponent::Release_Inspection(const FInputActionValue& Value)
 {
 	bIsRotation = false;
 }
 
-void UPBActionComponent::MouseX_Item(const FInputActionValue& Value)
+void UPBActionComponent::MouseX_Inspection(const FInputActionValue& Value)
 {
 	if (bIsRotation)
 	{
@@ -150,7 +158,7 @@ void UPBActionComponent::MouseX_Item(const FInputActionValue& Value)
 	}
 }
 
-void UPBActionComponent::MouseY_Item(const FInputActionValue& Value)
+void UPBActionComponent::MouseY_Inspection(const FInputActionValue& Value)
 {
 	if (bIsRotation)
 	{
@@ -158,12 +166,18 @@ void UPBActionComponent::MouseY_Item(const FInputActionValue& Value)
 	}
 }
 
-void UPBActionComponent::WheelUp_Item(const FInputActionValue& Value)
+void UPBActionComponent::WheelUp_Inspection(const FInputActionValue& Value)
 {
 	
 }
 
-void UPBActionComponent::WheelDown_Item(const FInputActionValue& Value)
+void UPBActionComponent::WheelDown_Inspection(const FInputActionValue& Value)
 {
 	
+}
+
+void UPBActionComponent::Quit_Inspection(const FInputActionValue& Value)
+{
+	PlayerController->ExitInspectWidget();
+	PBLOG_S(Warning);
 }

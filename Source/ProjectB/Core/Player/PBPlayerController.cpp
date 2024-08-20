@@ -32,6 +32,8 @@ void APBPlayerController::BeginPlay()
 	SetInputMode(InputMode);
 
 	PlayerPawn = Cast<APBPlayerPawn>(GetPawn());
+	PlayerHUD = Cast<APBHUD>(GetHUD());
+	
 	if (UPBCameraComponent* CameraComponent =  PlayerPawn->GetComponentByClass<UPBCameraComponent>())
 	{
 		CameraComponent->InitPlayerController();
@@ -52,7 +54,7 @@ void APBPlayerController::OnPossess(APawn* InPawn)
 	}
 }
 
-void APBPlayerController::ItemInspection(UStaticMesh* StaticMesh, FText ItemName, FText ItemDescription)
+void APBPlayerController::ItemInspection(UStaticMesh* StaticMesh, FText ItemName, FText ItemDescription, FVector ItemScale)
 {
 	SetUIOpenTrue();
 	
@@ -62,26 +64,20 @@ void APBPlayerController::ItemInspection(UStaticMesh* StaticMesh, FText ItemName
 		Subsystem->AddMappingContext(ItemInspectionContext, 0);
 	}
 	
-	if (IsValid(InspectClass))
+	if (PlayerHUD)
 	{
-		InspectWidget = Cast<UInspectWidget>(CreateWidget(GetWorld(), InspectClass));
-
-		if (IsValid(InspectWidget))
-		{
-			InspectWidget->AddToViewport();
-			InspectWidget->SetItemInfo(ItemName, ItemDescription);
-		}
+		PlayerHUD->ShowInspectWidget(ItemName, ItemDescription);
 	}
 
 	FVector NewLocation = FVector(100000000.f, 0.f, 0.f);
 	FRotator NewRotation = FRotator(0.f, 0.f, 0.f);
-	FTransform NewTransform = FTransform(NewRotation, NewLocation);
+	FTransform NewTransform = FTransform(NewRotation, NewLocation, ItemScale);
 	FActorSpawnParameters SpawnInfo;
-	
-	if (APBInspectItem* SpawnItem = GetWorld()->SpawnActor<APBInspectItem>(InspectItemFactory, NewTransform, SpawnInfo))
+
+	SpawnInspectItem = GetWorld()->SpawnActor<APBInspectItem>(InspectItemFactory, NewTransform, SpawnInfo);
+	if (SpawnInspectItem != nullptr)
 	{
-		SpawnItem->GetStaticMeshComponent()->SetStaticMesh(StaticMesh);
-		PBLOG_S(Warning);
+		SpawnInspectItem->GetStaticMeshComponent()->SetStaticMesh(StaticMesh);
 	}
 }
 
@@ -95,10 +91,22 @@ void APBPlayerController::SetUIOpenFalse()
 {
 	bIsUIOpen = false;
 	UIOpenDelegate.Broadcast(bIsUIOpen);
+}
 
-	// if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
-	// {
-	// 	Subsystem->RemoveMappingContext(ItemInspectionContext);
-	// 	Subsystem->AddMappingContext(DefaultMappingContext, 0);
-	// }
+void APBPlayerController::ExitInspectWidget()
+{
+	if (PlayerHUD)
+	{
+		PlayerHUD->HiddenInspectWidget();
+	}
+	
+	SpawnInspectItem->Destroy();
+	
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		Subsystem->RemoveMappingContext(ItemInspectionContext);
+		Subsystem->AddMappingContext(DefaultMappingContext, 0);
+	}
+	
+	SetUIOpenFalse();
 }

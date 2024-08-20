@@ -14,11 +14,19 @@ APBItemBase::APBItemBase()
 	SetRootComponent(MeshComponent);
 	MeshComponent->SetRenderCustomDepth(false);
 	MeshComponent->SetCustomDepthStencilValue(1);
+
+	ItemMesh = MeshComponent->GetStaticMesh();
+	ItemScale = FVector(1.f, 1.f, 1.f);
 }
 
 void APBItemBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (ItemMesh == nullptr)
+	{
+		ItemMesh = MeshComponent->GetStaticMesh();
+	}
 }
 
 void APBItemBase::Tick(float DeltaTime)
@@ -30,7 +38,7 @@ void APBItemBase::Interact(APlayerController* Controller)
 {
 	if (APBPlayerController* PlayerController = Cast<APBPlayerController>(Controller))
 	{
-		PlayerController->ItemInspection(MeshComponent->GetStaticMesh(), ItemName, ItemDescription);
+		PlayerController->ItemInspection(ItemMesh, ItemName, ItemDescription, ItemScale);
 	}
 }
 
