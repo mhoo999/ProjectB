@@ -7,7 +7,7 @@
 #include "PBPlayerController.generated.h"
 
 class APBHUD;
-class UInspectWidget;
+class UPBInspectWidget;
 class APBInspectItem;
 class UInputMappingContext;
 class APBItemBase;

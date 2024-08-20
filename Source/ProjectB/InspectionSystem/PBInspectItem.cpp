@@ -10,9 +10,12 @@ APBInspectItem::APBInspectItem()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Static Mesh"));
-	SetRootComponent(StaticMeshComponent);
+	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Scene Component"));
+	SetRootComponent(SceneComponent);
 
+	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Static Mesh"));
+	StaticMeshComponent->SetupAttachment(RootComponent);
+	
 	SceneCaptureComponent = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("Scene Capture Component"));
 	SceneCaptureComponent->SetupAttachment(RootComponent);
 	SceneCaptureComponent->SetRelativeLocation(FVector(-110.f, 0.f, 0.f));
@@ -35,5 +38,19 @@ void APBInspectItem::Tick(float DeltaTime)
 UStaticMeshComponent* APBInspectItem::GetStaticMeshComponent()
 {
 	return StaticMeshComponent;
+}
+
+void APBInspectItem::ZoomOut()
+{
+	float CurrentValue = SceneCaptureComponent->FOVAngle;
+	float NewValue = FMath::Clamp(CurrentValue + 10.0f, 30.f, 80.f);
+	SceneCaptureComponent->FOVAngle = NewValue;
+}
+
+void APBInspectItem::ZoomIn()
+{
+	float CurrentValue = SceneCaptureComponent->FOVAngle;
+	float NewValue = FMath::Clamp(CurrentValue - 10.0f, 30.f, 80.f);
+	SceneCaptureComponent->FOVAngle = NewValue;
 }
 

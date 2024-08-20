@@ -4,14 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "InspectWidget.generated.h"
+#include "PBInspectWidget.generated.h"
 
 class UTextBlock;
 /**
  * 
  */
 UCLASS()
-class PROJECTB_API UInspectWidget : public UUserWidget
+class PROJECTB_API UPBInspectWidget : public UUserWidget
 {
 	GENERATED_BODY()
 

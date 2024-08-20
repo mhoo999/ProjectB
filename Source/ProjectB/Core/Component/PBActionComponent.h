@@ -8,6 +8,7 @@
 #include "PBActionComponent.generated.h"
 
 
+class APBInspectItem;
 class IInteractable;
 class UInputAction;
 
@@ -65,4 +66,10 @@ private:
 	void Quit_Inspection(const FInputActionValue& Value);
 
 	bool bIsRotation;
+
+	APBInspectItem* InspectItem;
+
+public:
+	void SetInspectItem(APBInspectItem* InspectItemRef);
+	void DeleteInspectItem();
 };

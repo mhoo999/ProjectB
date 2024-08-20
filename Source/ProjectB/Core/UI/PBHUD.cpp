@@ -3,7 +3,7 @@
 
 #include "PBHUD.h"
 
-#include "InspectWidget.h"
+#include "PBInspectWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "ProjectB/Items/PBItemBase.h"
 
@@ -18,7 +18,7 @@ void APBHUD::BeginPlay()
 
 	if (IsValid(InspectClass))
 	{
-		InspectWidget = Cast<UInspectWidget>(CreateWidget(GetWorld(), InspectClass));
+		InspectWidget = Cast<UPBInspectWidget>(CreateWidget(GetWorld(), InspectClass));
 
 		if (IsValid(InspectWidget))
 		{

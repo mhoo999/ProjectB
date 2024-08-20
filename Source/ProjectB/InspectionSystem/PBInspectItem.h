@@ -22,6 +22,9 @@ public:
 	
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Component", meta=(AllowPrivateAccess))
+	USceneComponent* SceneComponent;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Component", meta=(AllowPrivateAccess))
 	UStaticMeshComponent* StaticMeshComponent;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Component", meta=(AllowPrivateAccess))
@@ -29,4 +32,7 @@ private:
 
 public:
 	UStaticMeshComponent* GetStaticMeshComponent();
+
+	void ZoomOut();
+	void ZoomIn();
 };

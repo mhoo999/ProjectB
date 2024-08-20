@@ -10,7 +10,7 @@
 #include "ProjectB/ProjectB.h"
 #include "ProjectB/Core/Component/PBActionComponent.h"
 #include "ProjectB/Core/Component/PBCameraComponent.h"
-#include "ProjectB/Core/UI/InspectWidget.h"
+#include "ProjectB/Core/UI/PBInspectWidget.h"
 #include "ProjectB/Core/UI/PBHUD.h"
 #include "ProjectB/InspectionSystem/PBInspectItem.h"
 #include "ProjectB/Items/PBItemBase.h"
@@ -78,6 +78,11 @@ void APBPlayerController::ItemInspection(UStaticMesh* StaticMesh, FText ItemName
 	if (SpawnInspectItem != nullptr)
 	{
 		SpawnInspectItem->GetStaticMeshComponent()->SetStaticMesh(StaticMesh);
+		
+		if (UPBActionComponent* ActionComponent = PlayerPawn->GetComponentByClass<UPBActionComponent>())
+		{
+			ActionComponent->SetInspectItem(SpawnInspectItem);
+		}
 	}
 }
 
@@ -98,6 +103,11 @@ void APBPlayerController::ExitInspectWidget()
 	if (PlayerHUD)
 	{
 		PlayerHUD->HiddenInspectWidget();
+	}
+
+	if (UPBActionComponent* ActionComponent = PlayerPawn->GetComponentByClass<UPBActionComponent>())
+	{
+		ActionComponent->DeleteInspectItem();
 	}
 	
 	SpawnInspectItem->Destroy();

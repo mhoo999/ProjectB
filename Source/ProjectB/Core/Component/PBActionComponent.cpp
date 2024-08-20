@@ -8,6 +8,7 @@
 #include "ProjectB/Core/Player/PBPlayerController.h"
 
 #include "ProjectB/Core/Player/PBPlayerPawn.h"
+#include "ProjectB/InspectionSystem/PBInspectItem.h"
 
 
 UPBActionComponent::UPBActionComponent()
@@ -152,32 +153,57 @@ void UPBActionComponent::Release_Inspection(const FInputActionValue& Value)
 
 void UPBActionComponent::MouseX_Inspection(const FInputActionValue& Value)
 {
-	if (bIsRotation)
+	if (bIsRotation && InspectItem)
 	{
+		UStaticMeshComponent* ItemMesh = InspectItem->GetStaticMeshComponent();
 		
+		FQuat CurrentRotation = ItemMesh->GetComponentQuat();
+		FQuat DeltaRotation = FQuat(FRotator(0.f, Value.Get<float>() * -4.f, 0.f));
+		FQuat NewRotation =  DeltaRotation * CurrentRotation;
+		ItemMesh->SetWorldRotation(NewRotation);
 	}
 }
 
 void UPBActionComponent::MouseY_Inspection(const FInputActionValue& Value)
 {
-	if (bIsRotation)
+	if (bIsRotation && InspectItem)
 	{
+		UStaticMeshComponent* ItemMesh = InspectItem->GetStaticMeshComponent();
 		
+		FQuat CurrentRotation = ItemMesh->GetComponentQuat();
+		FQuat DeltaRotation = FQuat(FRotator(Value.Get<float>() * -4.f, 0.f, 0.f));
+		FQuat NewRotation =  DeltaRotation * CurrentRotation;
+		ItemMesh->SetWorldRotation(NewRotation);
 	}
 }
 
 void UPBActionComponent::WheelUp_Inspection(const FInputActionValue& Value)
 {
-	
+	if (InspectItem)
+	{
+		InspectItem->ZoomIn();
+	}
 }
 
 void UPBActionComponent::WheelDown_Inspection(const FInputActionValue& Value)
 {
-	
+	if (InspectItem)
+	{
+		InspectItem->ZoomOut();
+	}
 }
 
 void UPBActionComponent::Quit_Inspection(const FInputActionValue& Value)
 {
 	PlayerController->ExitInspectWidget();
-	PBLOG_S(Warning);
+}
+
+void UPBActionComponent::SetInspectItem(APBInspectItem* InspectItemRef)
+{
+	InspectItem = InspectItemRef;
+}
+
+void UPBActionComponent::DeleteInspectItem()
+{
+	InspectItem = nullptr;
 }

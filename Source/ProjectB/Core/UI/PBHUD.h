@@ -7,7 +7,7 @@
 #include "PBHUD.generated.h"
 
 class APBItemBase;
-class UInspectWidget;
+class UPBInspectWidget;
 /**
  * 
  */
@@ -22,8 +22,8 @@ class PROJECTB_API APBHUD : public AHUD
 
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="InspectionSystem", meta=(AllowPrivateAccess))
-	TSubclassOf<UInspectWidget> InspectClass;
-	UInspectWidget* InspectWidget;
+	TSubclassOf<UPBInspectWidget> InspectClass;
+	UPBInspectWidget* InspectWidget;
 
 public:
 	void ShowInspectWidget(FText Name, FText Description);
