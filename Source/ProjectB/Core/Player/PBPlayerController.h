@@ -53,10 +53,11 @@ private:
 	APBInspectItem* SpawnInspectItem;
 
 public:
-	void ItemInspection(UStaticMesh* StaticMesh, FText ItemName, FText ItemDescription, FVector ItemScale);
+	void ItemInspection(UStaticMesh* StaticMesh, FText ItemName, FString ItemDescription, FVector ItemScale);
 
 	void SetUIOpenTrue();
 	void SetUIOpenFalse();
 
 	void ExitInspectWidget();
+	void VisibilityToggleDialogueInspectWidget();
 };

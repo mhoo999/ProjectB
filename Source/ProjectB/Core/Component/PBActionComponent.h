@@ -12,6 +12,8 @@ class APBInspectItem;
 class IInteractable;
 class UInputAction;
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnDialogueAdvance, bool);
+
 UCLASS()
 class PROJECTB_API UPBActionComponent : public UPBPlayerComponentBase
 {
@@ -19,6 +21,8 @@ class PROJECTB_API UPBActionComponent : public UPBPlayerComponentBase
 
 public:
 	UPBActionComponent();
+
+	FOnDialogueAdvance OnDialogueAdvance;
 
 protected:
 	virtual void BeginPlay() override;
@@ -57,6 +61,12 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
 	UInputAction* IA_Quit_Ispection;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
+	UInputAction* IA_SpaceBar_Inspection;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
+	UInputAction* IA_H_Inspection;
+
 	void Press_Inspection(const FInputActionValue& Value);
 	void Release_Inspection(const FInputActionValue& Value);
 	void MouseX_Inspection(const FInputActionValue& Value);
@@ -64,7 +74,9 @@ private:
 	void WheelUp_Inspection(const FInputActionValue& Value);
 	void WheelDown_Inspection(const FInputActionValue& Value);
 	void Quit_Inspection(const FInputActionValue& Value);
-
+	void SpaceBar_Inspection(const FInputActionValue& Value);
+	void H_Inspection(const FInputActionValue& Value);
+	
 	bool bIsRotation;
 
 	APBInspectItem* InspectItem;

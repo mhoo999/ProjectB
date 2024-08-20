@@ -54,7 +54,7 @@ void APBPlayerController::OnPossess(APawn* InPawn)
 	}
 }
 
-void APBPlayerController::ItemInspection(UStaticMesh* StaticMesh, FText ItemName, FText ItemDescription, FVector ItemScale)
+void APBPlayerController::ItemInspection(UStaticMesh* StaticMesh, FText ItemName, FString ItemDescription, FVector ItemScale)
 {
 	SetUIOpenTrue();
 	
@@ -119,4 +119,12 @@ void APBPlayerController::ExitInspectWidget()
 	}
 	
 	SetUIOpenFalse();
+}
+
+void APBPlayerController::VisibilityToggleDialogueInspectWidget()
+{
+	if (PlayerHUD)
+	{
+		PlayerHUD->VisibilityToggleDialogueInspectWidget();
+	}
 }

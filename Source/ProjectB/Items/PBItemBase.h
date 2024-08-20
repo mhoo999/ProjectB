@@ -30,15 +30,16 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Component", meta=(AllowPrivateAccess))
 	UStaticMeshComponent* MeshComponent;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="ItemInfo", meta=(AllowPrivateAccess))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="InspectInfo", meta=(AllowPrivateAccess))
 	UStaticMesh* ItemMesh;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="ItemInfo", meta=(AllowPrivateAccess))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="InspectInfo", meta=(AllowPrivateAccess))
 	FText ItemName;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="ItemInfo", meta=(AllowPrivateAccess))
-	FText ItemDescription;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="ItemInfo", meta=(AllowPrivateAccess))
+	// "/" 를 사용해 문장 단위로 나눌 수 있습니다.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="InspectInfo", meta=(AllowPrivateAccess))
+	FString ItemDescription;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="InspectInfo", meta=(AllowPrivateAccess))
 	FVector ItemScale;
 };

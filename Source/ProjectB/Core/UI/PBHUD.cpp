@@ -28,12 +28,16 @@ void APBHUD::BeginPlay()
 	}
 }
 
-void APBHUD::ShowInspectWidget(FText Name, FText Description)
+void APBHUD::ShowInspectWidget(FText Name, FString Description)
 {
 	if (IsValid(InspectWidget))
 	{
 		InspectWidget->SetVisibility(ESlateVisibility::Visible);
-		InspectWidget->SetItemInfo(Name, Description);
+
+		if (!Description.IsEmpty())
+		{
+			InspectWidget->ShowDialogueWidget(Description, FName(""));
+		}
 	}
 }
 
@@ -42,5 +46,13 @@ void APBHUD::HiddenInspectWidget()
 	if (IsValid(InspectWidget))
 	{
 		InspectWidget->SetVisibility(ESlateVisibility::Hidden);
+	}
+}
+
+void APBHUD::VisibilityToggleDialogueInspectWidget()
+{
+	if (IsValid(InspectWidget))
+	{
+		InspectWidget->VisibilityToggleDialogue();
 	}
 }

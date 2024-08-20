@@ -26,6 +26,7 @@ private:
 	UPBInspectWidget* InspectWidget;
 
 public:
-	void ShowInspectWidget(FText Name, FText Description);
+	void ShowInspectWidget(FText Name, FString Description);
 	void HiddenInspectWidget();
+	void VisibilityToggleDialogueInspectWidget();
 };

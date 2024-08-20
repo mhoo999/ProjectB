@@ -3,10 +3,24 @@
 
 #include "PBInspectWidget.h"
 
+#include "PBDialogueWidget.h"
 #include "Components/TextBlock.h"
 
-void UPBInspectWidget::SetItemInfo(FText Name, FText Description)
+
+void UPBInspectWidget::ShowDialogueWidget(FString DialogueText, FName Speaker)
 {
-	ItemName->SetText(Name);
-	ItemDescription->SetText(Description);
+	DialogueWidget->ShowDialogue(DialogueText, Speaker);
+	DialogueWidget->SetVisibility(ESlateVisibility::Visible);
+}
+
+void UPBInspectWidget::VisibilityToggleDialogue()
+{
+	if (DialogueWidget->GetVisibility() == ESlateVisibility::Visible)
+	{
+		DialogueWidget->SetVisibility(ESlateVisibility::Hidden);
+	}
+	else
+	{
+		DialogueWidget->SetVisibility(ESlateVisibility::Visible);
+	}
 }

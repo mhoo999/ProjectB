@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "PBInspectWidget.generated.h"
 
+class UPBDialogueWidget;
 class UTextBlock;
 /**
  * 
@@ -15,13 +16,11 @@ class PROJECTB_API UPBInspectWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
-private:
-	UPROPERTY(meta=(BindWidget), meta=(AllowPrivateAccess))
-	UTextBlock* ItemName;
-
-	UPROPERTY(meta=(BindWidget), meta=(AllowPrivateAccess))
-	UTextBlock* ItemDescription;
+	UPROPERTY(meta=(BindWidget))
+	UPBDialogueWidget* DialogueWidget;
 
 public:
-	void SetItemInfo(FText Name, FText Description);
+	void ShowDialogueWidget(FString DialogueText, FName Speaker);
+
+	void VisibilityToggleDialogue();
 };

@@ -57,6 +57,17 @@ UPBActionComponent::UPBActionComponent()
 		IA_Quit_Ispection = QuitInspectRef.Object;
 	}
 
+	static ConstructorHelpers::FObjectFinder<UInputAction> SpaceBarInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_SpaceBar_Inspect.IA_SpaceBar_Inspect'"));
+	if (SpaceBarInspectRef.Succeeded())
+	{
+		IA_SpaceBar_Inspection = SpaceBarInspectRef.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UInputAction> HInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_H_Inspect.IA_H_Inspect'"));
+	if (HInspectRef.Succeeded())
+	{
+		IA_H_Inspection = HInspectRef.Object;
+	}
 	
 	LastHitActor = nullptr;
 }
@@ -129,6 +140,8 @@ void UPBActionComponent::SetupPlayerInput(UInputComponent* PlayerInputComponent)
 		EnhancedInputComponent->BindAction(IA_WheelUp_Ispection, ETriggerEvent::Started, this, &UPBActionComponent::WheelUp_Inspection);
 		EnhancedInputComponent->BindAction(IA_WheelDown_Ispection, ETriggerEvent::Started, this, &UPBActionComponent::WheelDown_Inspection);
 		EnhancedInputComponent->BindAction(IA_Quit_Ispection, ETriggerEvent::Started, this, &UPBActionComponent::Quit_Inspection);
+		EnhancedInputComponent->BindAction(IA_SpaceBar_Inspection, ETriggerEvent::Started, this, &UPBActionComponent::SpaceBar_Inspection);
+		EnhancedInputComponent->BindAction(IA_H_Inspection, ETriggerEvent::Started, this, &UPBActionComponent::H_Inspection);
 	}
 }
 
@@ -144,6 +157,7 @@ void UPBActionComponent::Click_Default(const FInputActionValue& Value)
 void UPBActionComponent::Press_Inspection(const FInputActionValue& Value)
 {
 	bIsRotation = true;
+	OnDialogueAdvance.Broadcast(true);
 }
 
 void UPBActionComponent::Release_Inspection(const FInputActionValue& Value)
@@ -196,6 +210,16 @@ void UPBActionComponent::WheelDown_Inspection(const FInputActionValue& Value)
 void UPBActionComponent::Quit_Inspection(const FInputActionValue& Value)
 {
 	PlayerController->ExitInspectWidget();
+}
+
+void UPBActionComponent::SpaceBar_Inspection(const FInputActionValue& Value)
+{
+	OnDialogueAdvance.Broadcast(true);
+}
+
+void UPBActionComponent::H_Inspection(const FInputActionValue& Value)
+{
+	PlayerController->VisibilityToggleDialogueInspectWidget();
 }
 
 void UPBActionComponent::SetInspectItem(APBInspectItem* InspectItemRef)
