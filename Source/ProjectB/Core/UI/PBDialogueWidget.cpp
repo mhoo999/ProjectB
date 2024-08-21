@@ -96,7 +96,8 @@ void UPBDialogueWidget::OnNextLineOrClose(bool Value)
 	}
 	else
 	{
-		CurrentText.Append(DialogueLines[CurrentLineIndex]);
+		FString RemainingText = DialogueLines[CurrentLineIndex].Mid(CurrentCharIndex);
+		CurrentText.Append(RemainingText);
 		DialogueTextBlock->SetText(FText::FromString(CurrentText));
 
 		if (TypingSound)
