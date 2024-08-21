@@ -18,23 +18,27 @@ void UPBDialogueWidget::NativeConstruct()
 	TypingSpeed = 0.05f;
 	bIsDialogueComplete = false;
 	DialogueTextBlock->SetAutoWrapText(true);
+}
 
-	if (APlayerController* PlayerController = GetWorld()->GetFirstPlayerController())
+void UPBDialogueWidget::ShowDialogue(FName Speaker, FString DialogueText)
+{
+	// show dialogue function
+
+	if (bIsAddDelegate == false)
 	{
-		if (APBPlayerPawn* PlayerPawn = Cast<APBPlayerPawn>(PlayerController->GetPawn()))
+		if (APlayerController* PlayerController = GetWorld()->GetFirstPlayerController())
 		{
-			if (UPBActionComponent* ActionComponent = PlayerPawn->GetComponentByClass<UPBActionComponent>())
+			if (APBPlayerPawn* PlayerPawn = Cast<APBPlayerPawn>(PlayerController->GetPawn()))
 			{
-				// ActionComponent > Press_Inspection, SpaceBar_Inspect
-				ActionComponent->OnDialogueAdvance.AddUObject(this, &UPBDialogueWidget::OnNextLineOrClose);
+				if (UPBActionComponent* ActionComponent = PlayerPawn->GetComponentByClass<UPBActionComponent>())
+				{
+					// ActionComponent > Press_Inspection, SpaceBar_Inspect
+					ActionComponent->OnDialogueAdvance.AddUObject(this, &UPBDialogueWidget::OnNextLineOrClose);
+					bIsAddDelegate = true;
+				}
 			}
 		}
 	}
-}
-
-void UPBDialogueWidget::ShowDialogue(FString DialogueText, FName Speaker)
-{
-	// show dialogue function
 	
 	if (FadeInAnimation)
 	{

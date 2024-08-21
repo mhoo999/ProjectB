@@ -18,7 +18,7 @@ class PROJECTB_API UPBDialogueWidget : public UUserWidget
 public:
 	// show dialogue function
 	UFUNCTION(BlueprintCallable, Category="Dialogue")
-	void ShowDialogue(FString DialogueText, FName Speaker);
+	void ShowDialogue(FName Speaker, FString DialogueText);
 
 	// Next line output or skip function
 	UFUNCTION(BlueprintCallable, Category="Dialogue")
@@ -56,5 +56,7 @@ private:
 	int32 CurrentLineIndex;
 	TArray<FString> DialogueLines;
 	bool bIsDialogueComplete;
+
+	bool bIsAddDelegate;
 
 };

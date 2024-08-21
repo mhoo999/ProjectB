@@ -6,6 +6,7 @@
 #include "GameFramework/HUD.h"
 #include "PBHUD.generated.h"
 
+class UPBCommunicationWidget;
 class APBItemBase;
 class UPBInspectWidget;
 /**
@@ -35,5 +36,15 @@ public:
 	void VisibilityToggleDialogueInspectWidget() const;
 	// ------------------------------
 
-	
+	// ---------- Communication System ----------
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="CommunicationSystem", meta=(AllowPrivateAccess))
+	TSubclassOf<UPBCommunicationWidget> CommunicateClass;
+	UPROPERTY()
+	UPBCommunicationWidget* CommunicateWidget;
+
+public:
+	void ShowCommunicateWidget(UMaterialInterface* CharacterTexture, FName CharacterName, FString Dialogue) const;
+
+	void HiddenCommunicationWidget();
+	// ------------------------------
 };

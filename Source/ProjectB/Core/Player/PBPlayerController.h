@@ -37,21 +37,24 @@ private:
 
 	virtual void OnPossess(APawn* InPawn) override;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	APBPlayerPawn* PlayerPawn;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	APBHUD* PlayerHUD;
 	
 	bool bIsUIOpen;
 
 	// ---------- IMC ----------
 private:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="IMC", meta=(AllowPrivateAccess))
 	UInputMappingContext* DefaultMappingContext;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="IMC", meta=(AllowPrivateAccess))
 	UInputMappingContext* ItemInspectionContext;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="IMC", meta=(AllowPrivateAccess))
+	UInputMappingContext* CommunicationContext;
 	// ------------------------------
 
 	// ---------- Inspection system ----------
@@ -70,5 +73,10 @@ public:
 	void VisibilityToggleDialogueInspectWidget() const;
 	// ------------------------------
 
-	
+	// ---------- Communication ----------
+public:
+	void Communication(UMaterialInterface* CharacterTexture, FName CharacterName, FString Dialogue);
+
+	void ExitCommunicationWidget();
+	// ------------------------------
 };

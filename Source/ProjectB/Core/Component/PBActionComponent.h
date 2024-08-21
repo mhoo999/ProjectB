@@ -91,5 +91,15 @@ public:
 	void SetInspectItem(APBInspectItem* InspectItemRef);
 	void DeleteInspectItem();
 	// ------------------------------
+
+	// ---------- Communication system ----------
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Communication", meta=(AllowPrivateAccess))
+	UInputAction* IA_Click_Communication;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Communication", meta=(AllowPrivateAccess))
+	UInputAction* IA_SpaceBar_Communication;
+
+	void Press_Communication(const FInputActionValue& Value);
 	
+	// ------------------------------
 };

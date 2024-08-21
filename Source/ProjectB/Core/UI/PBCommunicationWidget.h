@@ -4,19 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "PBInspectWidget.generated.h"
+#include "PBCommunicationWidget.generated.h"
 
+class UImage;
 class UPBDialogueWidget;
-class UTextBlock;
 /**
  * 
  */
 UCLASS()
-class PROJECTB_API UPBInspectWidget : public UUserWidget
+class PROJECTB_API UPBCommunicationWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
 private:
+	UPROPERTY(meta=(BindWidget))
+	UImage* CharacterFrame;
+	
 	UPROPERTY(meta=(BindWidget))
 	UPBDialogueWidget* DialogueWidget;
 
@@ -27,9 +30,8 @@ private:
 	UWidgetAnimation* FadeOutAnimation;
 
 public:
-	void ShowInspectWidget(FName Speaker, const FString& DialogueText);
+	void ShowCommunicateWidget(UMaterialInterface* CharacterTexture, FName Speaker, const FString& DialogueText);
 	
 	void ShowDialogueWidget(FName Speaker, const FString& DialogueText) const;
-
-	void VisibilityToggleDialogue() const;
+	
 };

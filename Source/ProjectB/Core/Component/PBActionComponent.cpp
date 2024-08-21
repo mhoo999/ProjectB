@@ -15,12 +15,15 @@ UPBActionComponent::UPBActionComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 
+	// ---------- Default IA ----------
 	static ConstructorHelpers::FObjectFinder<UInputAction> ClickDefaultRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/Default/IA_Click_Default.IA_Click_Default'"));
 	if (ClickDefaultRef.Succeeded())
 	{
 		IA_Click_Default = ClickDefaultRef.Object;
 	}
+	// ------------------------------
 
+	// ---------- Inspection system ----------
 	static ConstructorHelpers::FObjectFinder<UInputAction> ClickInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_Click_Inspect.IA_Click_Inspect'"));
 	if (ClickInspectRef.Succeeded())
 	{
@@ -68,6 +71,21 @@ UPBActionComponent::UPBActionComponent()
 	{
 		IA_H_Inspection = HInspectRef.Object;
 	}
+	// ------------------------------
+
+	// ---------- Communication system ----------
+	static ConstructorHelpers::FObjectFinder<UInputAction> ClickCommunicationRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/Communication/IA_Click__Communication.IA_Click__Communication'"));
+	if (ClickCommunicationRef.Succeeded())
+	{
+		IA_Click_Communication = ClickCommunicationRef.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UInputAction> SpaceBarCommunicationRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/Communication/IA_SpaceBar__Communication.IA_SpaceBar__Communication'"));
+	if (SpaceBarCommunicationRef.Succeeded())
+	{
+		IA_SpaceBar_Communication = SpaceBarCommunicationRef.Object;
+	}
+	// ------------------------------
 	
 	LastHitActor = nullptr;
 }
@@ -142,6 +160,9 @@ void UPBActionComponent::SetupPlayerInput(UInputComponent* PlayerInputComponent)
 		EnhancedInputComponent->BindAction(IA_Quit_Inspection, ETriggerEvent::Started, this, &UPBActionComponent::Quit_Inspection);
 		EnhancedInputComponent->BindAction(IA_SpaceBar_Inspection, ETriggerEvent::Started, this, &UPBActionComponent::SpaceBar_Inspection);
 		EnhancedInputComponent->BindAction(IA_H_Inspection, ETriggerEvent::Started, this, &UPBActionComponent::H_Inspection);
+		
+		EnhancedInputComponent->BindAction(IA_Click_Communication, ETriggerEvent::Started, this, &UPBActionComponent::Press_Communication);
+		EnhancedInputComponent->BindAction(IA_SpaceBar_Communication, ETriggerEvent::Started, this, &UPBActionComponent::Press_Communication);
 	}
 }
 
@@ -230,4 +251,9 @@ void UPBActionComponent::SetInspectItem(APBInspectItem* InspectItemRef)
 void UPBActionComponent::DeleteInspectItem()
 {
 	InspectItem = nullptr;
+}
+
+void UPBActionComponent::Press_Communication(const FInputActionValue& Value)
+{
+	OnDialogueAdvance.Broadcast(true);
 }

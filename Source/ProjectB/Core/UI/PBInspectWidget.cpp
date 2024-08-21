@@ -7,9 +7,19 @@
 #include "Components/TextBlock.h"
 
 
-void UPBInspectWidget::ShowDialogueWidget(const FString& DialogueText, FName Speaker) const
+void UPBInspectWidget::ShowInspectWidget(FName Speaker, const FString& DialogueText)
 {
-	DialogueWidget->ShowDialogue(DialogueText, Speaker);
+	if (FadeInAnimation)
+	{
+		PlayAnimation(FadeInAnimation);
+	}
+
+	ShowDialogueWidget(Speaker, DialogueText);
+}
+
+void UPBInspectWidget::ShowDialogueWidget(FName Speaker, const FString& DialogueText) const
+{
+	DialogueWidget->ShowDialogue(Speaker, DialogueText);
 	DialogueWidget->SetVisibility(ESlateVisibility::Visible);
 }
 
