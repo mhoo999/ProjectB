@@ -23,9 +23,9 @@ APBPlayerController::APBPlayerController()
 void APBPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	// Initialize game mode
 	bShowMouseCursor = true;
-	
 	FInputModeGameAndUI InputMode;
 	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
 	InputMode.SetHideCursorDuringCapture(false);
@@ -56,7 +56,7 @@ void APBPlayerController::OnPossess(APawn* InPawn)
 
 void APBPlayerController::ItemInspection(UStaticMesh* StaticMesh, FText ItemName, FString ItemDescription, FVector ItemScale)
 {
-	SetUIOpenTrue();
+	PauseBasicFunction();
 	
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
@@ -86,16 +86,16 @@ void APBPlayerController::ItemInspection(UStaticMesh* StaticMesh, FText ItemName
 	}
 }
 
-void APBPlayerController::SetUIOpenTrue()
+void APBPlayerController::PauseBasicFunction()
 {
 	bIsUIOpen = true;
-	UIOpenDelegate.Broadcast(bIsUIOpen);
+	UPauseDefaultFunctionDelegate.Broadcast(bIsUIOpen);
 }
 
-void APBPlayerController::SetUIOpenFalse()
+void APBPlayerController::ResumeBasicFunction()
 {
 	bIsUIOpen = false;
-	UIOpenDelegate.Broadcast(bIsUIOpen);
+	UPauseDefaultFunctionDelegate.Broadcast(bIsUIOpen);
 }
 
 void APBPlayerController::ExitInspectWidget()
@@ -118,10 +118,10 @@ void APBPlayerController::ExitInspectWidget()
 		Subsystem->AddMappingContext(DefaultMappingContext, 0);
 	}
 	
-	SetUIOpenFalse();
+	ResumeBasicFunction();
 }
 
-void APBPlayerController::VisibilityToggleDialogueInspectWidget()
+void APBPlayerController::VisibilityToggleDialogueInspectWidget() const
 {
 	if (PlayerHUD)
 	{

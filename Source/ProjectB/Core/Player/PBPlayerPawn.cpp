@@ -37,6 +37,7 @@ void APBPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	// Input delegate
 	OnSetupInputDelegate.Broadcast(PlayerInputComponent);
 }
 

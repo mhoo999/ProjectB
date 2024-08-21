@@ -25,6 +25,7 @@ void UPBDialogueWidget::NativeConstruct()
 		{
 			if (UPBActionComponent* ActionComponent = PlayerPawn->GetComponentByClass<UPBActionComponent>())
 			{
+				// ActionComponent > Press_Inspection, SpaceBar_Inspect
 				ActionComponent->OnDialogueAdvance.AddUObject(this, &UPBDialogueWidget::OnNextLineOrClose);
 			}
 		}
@@ -33,12 +34,15 @@ void UPBDialogueWidget::NativeConstruct()
 
 void UPBDialogueWidget::ShowDialogue(FString DialogueText, FName Speaker)
 {
+	// show dialogue function
+	
 	if (FadeInAnimation)
 	{
 		PlayAnimation(FadeInAnimation);
 	}
 	
 	FullText = DialogueText;
+	// Divide by "/" and store as an element in the array
 	FullText.ParseIntoArray(DialogueLines, TEXT("/"), false);
 
 	if (!Speaker.IsNone())
@@ -50,18 +54,19 @@ void UPBDialogueWidget::ShowDialogue(FString DialogueText, FName Speaker)
 		SpeakerBlock->SetText(FText::FromString(TEXT("")));
 	}
 
+	// initialize
 	bIsDialogueComplete = false;
 	CurrentLineIndex = 0;
 	CurrentText = "";
 	CurrentCharIndex = 0;
 	GetWorld()->GetTimerManager().ClearTimer(TypingTimerHandle);
-
+	
 	GetWorld()->GetTimerManager().SetTimer(TypingTimerHandle, this, &UPBDialogueWidget::TypeNextChar, TypingSpeed, true);
 }
 
 void UPBDialogueWidget::OnNextLineOrClose(bool Value)
 {
-	PBLOG_S(Warning);
+	// Next line output or skip function
 	
 	if (bIsDialogueComplete)
 	{
@@ -102,8 +107,8 @@ void UPBDialogueWidget::OnNextLineOrClose(bool Value)
 
 void UPBDialogueWidget::TypeNextChar()
 {
-	PBLOG_S(Warning);
-	
+	// a character-by-character function
+
 	if (CurrentCharIndex < DialogueLines[CurrentLineIndex].Len())
 	{
 		CurrentText.AppendChar(DialogueLines[CurrentLineIndex][CurrentCharIndex]);

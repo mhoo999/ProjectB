@@ -19,7 +19,8 @@ void UPBPlayerComponentBase::BeginPlay()
 
 	if (PlayerController)
 	{
-		PlayerController->UIOpenDelegate.AddDynamic(this, &UPBPlayerComponentBase::ChangePauseFunctionFromController);
+		// PlayerController > PauseBasicFunction, ResumeBasicFunction
+		PlayerController->UPauseDefaultFunctionDelegate.AddDynamic(this, &UPBPlayerComponentBase::ChangePauseFunctionFromController);
 	}
 }
 
@@ -33,6 +34,7 @@ void UPBPlayerComponentBase::InitializeComponent()
 	Super::InitializeComponent();
 	
 	PlayerPawn = Cast<APBPlayerPawn>(GetOwner());
+	// PlayerPawn > SetupPlayerInputComponent
 	PlayerPawn->OnSetupInputDelegate.AddUObject(this, &UPBPlayerComponentBase::SetupPlayerInput);
 }
 
@@ -48,6 +50,7 @@ void UPBPlayerComponentBase::InitPlayerController()
 
 void UPBPlayerComponentBase::ChangePauseFunctionFromController(bool bIsUIOpen)
 {
+	// Basic interaction, camera motion stop function. Delegate from controller
 	bPauseFunction = bIsUIOpen;
 }
 

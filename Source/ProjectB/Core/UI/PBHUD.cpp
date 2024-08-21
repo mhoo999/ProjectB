@@ -28,7 +28,7 @@ void APBHUD::BeginPlay()
 	}
 }
 
-void APBHUD::ShowInspectWidget(FText Name, FString Description)
+void APBHUD::ShowInspectWidget(FText Name, const FString& Description) const
 {
 	if (IsValid(InspectWidget))
 	{
@@ -41,7 +41,7 @@ void APBHUD::ShowInspectWidget(FText Name, FString Description)
 	}
 }
 
-void APBHUD::HiddenInspectWidget()
+void APBHUD::HiddenInspectWidget() const
 {
 	if (IsValid(InspectWidget))
 	{
@@ -49,7 +49,7 @@ void APBHUD::HiddenInspectWidget()
 	}
 }
 
-void APBHUD::VisibilityToggleDialogueInspectWidget()
+void APBHUD::VisibilityToggleDialogueInspectWidget() const
 {
 	if (IsValid(InspectWidget))
 	{

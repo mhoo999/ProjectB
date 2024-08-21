@@ -12,6 +12,7 @@ class APBInspectItem;
 class IInteractable;
 class UInputAction;
 
+// Dialogue skip delegate
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnDialogueAdvance, bool);
 
 UCLASS()
@@ -22,6 +23,7 @@ class PROJECTB_API UPBActionComponent : public UPBPlayerComponentBase
 public:
 	UPBActionComponent();
 
+	// Dialogue skip delegate
 	FOnDialogueAdvance OnDialogueAdvance;
 
 protected:
@@ -33,6 +35,7 @@ public:
 protected:
 	virtual void SetupPlayerInput(UInputComponent* PlayerInputComponent) override;
 
+	// ---------- Default IMC ----------
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Default", meta=(AllowPrivateAccess))
 	UInputAction* IA_Click_Default;
@@ -41,25 +44,27 @@ private:
 
 	IInteractable* HitActor;
 	IInteractable* LastHitActor;
+	// ------------------------------
 
+	// ---------- Inspection system IMC ----------
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
-	UInputAction* IA_Click_Ispection;
+	UInputAction* IA_Click_Inspection;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
-	UInputAction* IA_MouseX_Ispection;
+	UInputAction* IA_MouseX_Inspection;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
-	UInputAction* IA_MouseY_Ispection;
+	UInputAction* IA_MouseY_Inspection;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
-	UInputAction* IA_WheelUp_Ispection;
+	UInputAction* IA_WheelUp_Inspection;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
-	UInputAction* IA_WheelDown_Ispection;
+	UInputAction* IA_WheelDown_Inspection;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
-	UInputAction* IA_Quit_Ispection;
+	UInputAction* IA_Quit_Inspection;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Inspection", meta=(AllowPrivateAccess))
 	UInputAction* IA_SpaceBar_Inspection;
@@ -79,9 +84,12 @@ private:
 	
 	bool bIsRotation;
 
+	UPROPERTY()
 	APBInspectItem* InspectItem;
 
 public:
 	void SetInspectItem(APBInspectItem* InspectItemRef);
 	void DeleteInspectItem();
+	// ------------------------------
+	
 };

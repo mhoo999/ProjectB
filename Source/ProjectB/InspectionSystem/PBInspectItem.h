@@ -31,8 +31,8 @@ private:
 	USceneCaptureComponent2D* SceneCaptureComponent;
 
 public:
-	UStaticMeshComponent* GetStaticMeshComponent();
+	UStaticMeshComponent* GetStaticMeshComponent() const;
 
-	void ZoomOut();
-	void ZoomIn();
+	void ZoomOut() const;
+	void ZoomIn() const;
 };

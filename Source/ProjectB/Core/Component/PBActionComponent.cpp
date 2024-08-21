@@ -24,37 +24,37 @@ UPBActionComponent::UPBActionComponent()
 	static ConstructorHelpers::FObjectFinder<UInputAction> ClickInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_Click_Inspect.IA_Click_Inspect'"));
 	if (ClickInspectRef.Succeeded())
 	{
-		IA_Click_Ispection = ClickInspectRef.Object;
+		IA_Click_Inspection = ClickInspectRef.Object;
 	}
 
 	static ConstructorHelpers::FObjectFinder<UInputAction> MouseXInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_MouseX_Inspect.IA_MouseX_Inspect'"));
 	if (MouseXInspectRef.Succeeded())
 	{
-		IA_MouseX_Ispection = MouseXInspectRef.Object;
+		IA_MouseX_Inspection = MouseXInspectRef.Object;
 	}
 
 	static ConstructorHelpers::FObjectFinder<UInputAction> MouseYInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_MouseY_Inspect.IA_MouseY_Inspect'"));
 	if (MouseYInspectRef.Succeeded())
 	{
-		IA_MouseY_Ispection = MouseYInspectRef.Object;
+		IA_MouseY_Inspection = MouseYInspectRef.Object;
 	}
 
 	static ConstructorHelpers::FObjectFinder<UInputAction> WheelUpInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_WheelUp_Inspect.IA_WheelUp_Inspect'"));
 	if (WheelUpInspectRef.Succeeded())
 	{
-		IA_WheelUp_Ispection = WheelUpInspectRef.Object;
+		IA_WheelUp_Inspection = WheelUpInspectRef.Object;
 	}
 
 	static ConstructorHelpers::FObjectFinder<UInputAction> WheelDownInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_WheelDown_Inspect.IA_WheelDown_Inspect'"));
 	if (WheelDownInspectRef.Succeeded())
 	{
-		IA_WheelDown_Ispection = WheelDownInspectRef.Object;
+		IA_WheelDown_Inspection = WheelDownInspectRef.Object;
 	}
 	
 	static ConstructorHelpers::FObjectFinder<UInputAction> QuitInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_Quit_Inspect.IA_Quit_Inspect'"));
 	if (QuitInspectRef.Succeeded())
 	{
-		IA_Quit_Ispection = QuitInspectRef.Object;
+		IA_Quit_Inspection = QuitInspectRef.Object;
 	}
 
 	static ConstructorHelpers::FObjectFinder<UInputAction> SpaceBarInspectRef(TEXT("/Script/EnhancedInput.InputAction'/Game/ProjectB/Core/Component/InputComponent/ItemInspection/IA_SpaceBar_Inspect.IA_SpaceBar_Inspect'"));
@@ -133,13 +133,13 @@ void UPBActionComponent::SetupPlayerInput(UInputComponent* PlayerInputComponent)
 	{
 		EnhancedInputComponent->BindAction(IA_Click_Default, ETriggerEvent::Started, this, &UPBActionComponent::Click_Default);
 
-		EnhancedInputComponent->BindAction(IA_Click_Ispection, ETriggerEvent::Started, this, &UPBActionComponent::Press_Inspection);
-		EnhancedInputComponent->BindAction(IA_Click_Ispection, ETriggerEvent::Completed, this, &UPBActionComponent::Release_Inspection);
-		EnhancedInputComponent->BindAction(IA_MouseX_Ispection, ETriggerEvent::Triggered, this, &UPBActionComponent::MouseX_Inspection);
-		EnhancedInputComponent->BindAction(IA_MouseY_Ispection, ETriggerEvent::Triggered, this, &UPBActionComponent::MouseY_Inspection);
-		EnhancedInputComponent->BindAction(IA_WheelUp_Ispection, ETriggerEvent::Started, this, &UPBActionComponent::WheelUp_Inspection);
-		EnhancedInputComponent->BindAction(IA_WheelDown_Ispection, ETriggerEvent::Started, this, &UPBActionComponent::WheelDown_Inspection);
-		EnhancedInputComponent->BindAction(IA_Quit_Ispection, ETriggerEvent::Started, this, &UPBActionComponent::Quit_Inspection);
+		EnhancedInputComponent->BindAction(IA_Click_Inspection, ETriggerEvent::Started, this, &UPBActionComponent::Press_Inspection);
+		EnhancedInputComponent->BindAction(IA_Click_Inspection, ETriggerEvent::Completed, this, &UPBActionComponent::Release_Inspection);
+		EnhancedInputComponent->BindAction(IA_MouseX_Inspection, ETriggerEvent::Triggered, this, &UPBActionComponent::MouseX_Inspection);
+		EnhancedInputComponent->BindAction(IA_MouseY_Inspection, ETriggerEvent::Triggered, this, &UPBActionComponent::MouseY_Inspection);
+		EnhancedInputComponent->BindAction(IA_WheelUp_Inspection, ETriggerEvent::Started, this, &UPBActionComponent::WheelUp_Inspection);
+		EnhancedInputComponent->BindAction(IA_WheelDown_Inspection, ETriggerEvent::Started, this, &UPBActionComponent::WheelDown_Inspection);
+		EnhancedInputComponent->BindAction(IA_Quit_Inspection, ETriggerEvent::Started, this, &UPBActionComponent::Quit_Inspection);
 		EnhancedInputComponent->BindAction(IA_SpaceBar_Inspection, ETriggerEvent::Started, this, &UPBActionComponent::SpaceBar_Inspection);
 		EnhancedInputComponent->BindAction(IA_H_Inspection, ETriggerEvent::Started, this, &UPBActionComponent::H_Inspection);
 	}

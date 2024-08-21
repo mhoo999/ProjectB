@@ -35,22 +35,22 @@ void APBInspectItem::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-UStaticMeshComponent* APBInspectItem::GetStaticMeshComponent()
+UStaticMeshComponent* APBInspectItem::GetStaticMeshComponent() const
 {
 	return StaticMeshComponent;
 }
 
-void APBInspectItem::ZoomOut()
+void APBInspectItem::ZoomOut() const
 {
-	float CurrentValue = SceneCaptureComponent->FOVAngle;
-	float NewValue = FMath::Clamp(CurrentValue + 10.0f, 30.f, 80.f);
+	const float CurrentValue = SceneCaptureComponent->FOVAngle;
+	const float NewValue = FMath::Clamp(CurrentValue + 10.0f, 30.f, 80.f);
 	SceneCaptureComponent->FOVAngle = NewValue;
 }
 
-void APBInspectItem::ZoomIn()
+void APBInspectItem::ZoomIn() const
 {
-	float CurrentValue = SceneCaptureComponent->FOVAngle;
-	float NewValue = FMath::Clamp(CurrentValue - 10.0f, 30.f, 80.f);
+	const float CurrentValue = SceneCaptureComponent->FOVAngle;
+	const float NewValue = FMath::Clamp(CurrentValue - 10.0f, 30.f, 80.f);
 	SceneCaptureComponent->FOVAngle = NewValue;
 }
 

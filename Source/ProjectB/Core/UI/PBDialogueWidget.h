@@ -16,9 +16,11 @@ class PROJECTB_API UPBDialogueWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
+	// show dialogue function
 	UFUNCTION(BlueprintCallable, Category="Dialogue")
 	void ShowDialogue(FString DialogueText, FName Speaker);
 
+	// Next line output or skip function
 	UFUNCTION(BlueprintCallable, Category="Dialogue")
 	void OnNextLineOrClose(bool Value);
 	
@@ -26,13 +28,9 @@ protected:
 	virtual void NativeConstruct() override;
 	
 private:
+	// a character-by-character function
 	void TypeNextChar();
 	
-	FTimerHandle TypingTimerHandle;
-	FString FullText;
-	FString CurrentText;
-	int32 CurrentCharIndex;
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Dialogue", meta=(AllowPrivateAccess))
 	float TypingSpeed;
 
@@ -47,11 +45,16 @@ private:
 
 	UPROPERTY(meta=(BindWidgetAnim), Transient)
 	UWidgetAnimation* FadeOutAnimation;
-
+	
+	UPROPERTY(EditAnywhere, Category="Sound")
+	USoundCue* TypingSound;
+	
+	FTimerHandle TypingTimerHandle;
+	FString FullText;
+	FString CurrentText;
+	int32 CurrentCharIndex;
 	int32 CurrentLineIndex;
 	TArray<FString> DialogueLines;
 	bool bIsDialogueComplete;
 
-	UPROPERTY(EditAnywhere, Category="Sound")
-	USoundCue* TypingSound;
 };

@@ -16,7 +16,7 @@ class UCameraComponent;
 /**
  * 
  */
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUIOpenDelegate, bool, bIsUIOpen);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPauseDefaultFunctionDelegate, bool, bIsUIOpen);
 
 UCLASS()
 class PROJECTB_API APBPlayerController : public APlayerController
@@ -26,38 +26,49 @@ class PROJECTB_API APBPlayerController : public APlayerController
 public:
 	APBPlayerController();
 
-	FUIOpenDelegate UIOpenDelegate;
-
+	// Basic interaction, camera motion stop function. Delegate from controller
+	FPauseDefaultFunctionDelegate UPauseDefaultFunctionDelegate;
+	
+	void PauseBasicFunction();
+	void ResumeBasicFunction();
+	
 private:
 	virtual void BeginPlay() override;
 
 	virtual void OnPossess(APawn* InPawn) override;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
-	UInputMappingContext* DefaultMappingContext;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
-	UInputMappingContext* ItemInspectionContext;
-	
 	UPROPERTY(EditDefaultsOnly)
 	APBPlayerPawn* PlayerPawn;
 
 	UPROPERTY(EditDefaultsOnly)
 	APBHUD* PlayerHUD;
-
+	
 	bool bIsUIOpen;
 
+	// ---------- IMC ----------
+private:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
+	UInputMappingContext* DefaultMappingContext;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Settings", meta=(AllowPrivateAccess))
+	UInputMappingContext* ItemInspectionContext;
+	// ------------------------------
+
+	// ---------- Inspection system ----------
+private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="InspectionSystem", meta=(AllowPrivateAccess))
 	TSubclassOf<APBInspectItem> InspectItemFactory;
 
+	UPROPERTY()
 	APBInspectItem* SpawnInspectItem;
 
 public:
 	void ItemInspection(UStaticMesh* StaticMesh, FText ItemName, FString ItemDescription, FVector ItemScale);
-
-	void SetUIOpenTrue();
-	void SetUIOpenFalse();
-
+	
 	void ExitInspectWidget();
-	void VisibilityToggleDialogueInspectWidget();
+	
+	void VisibilityToggleDialogueInspectWidget() const;
+	// ------------------------------
+
+	
 };

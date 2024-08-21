@@ -20,7 +20,7 @@ class PROJECTB_API UPBInspectWidget : public UUserWidget
 	UPBDialogueWidget* DialogueWidget;
 
 public:
-	void ShowDialogueWidget(FString DialogueText, FName Speaker);
+	void ShowDialogueWidget(const FString& DialogueText, FName Speaker) const;
 
-	void VisibilityToggleDialogue();
+	void VisibilityToggleDialogue() const;
 };

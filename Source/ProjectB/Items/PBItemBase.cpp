@@ -42,7 +42,7 @@ void APBItemBase::Interact(APlayerController* Controller)
 	}
 }
 
-void APBItemBase::SetOutline(bool bOutlineEnabled)
+void APBItemBase::SetOutline(const bool bOutlineEnabled)
 {
 	MeshComponent->SetRenderCustomDepth(bOutlineEnabled);
 }

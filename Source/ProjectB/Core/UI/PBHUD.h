@@ -20,13 +20,20 @@ class PROJECTB_API APBHUD : public AHUD
 
 	virtual void BeginPlay() override;
 
+	// ---------- Inspection system ----------
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="InspectionSystem", meta=(AllowPrivateAccess))
 	TSubclassOf<UPBInspectWidget> InspectClass;
+	UPROPERTY()
 	UPBInspectWidget* InspectWidget;
 
 public:
-	void ShowInspectWidget(FText Name, FString Description);
-	void HiddenInspectWidget();
-	void VisibilityToggleDialogueInspectWidget();
+	void ShowInspectWidget(FText Name, const FString& Description) const;
+	
+	void HiddenInspectWidget() const;
+	
+	void VisibilityToggleDialogueInspectWidget() const;
+	// ------------------------------
+
+	
 };

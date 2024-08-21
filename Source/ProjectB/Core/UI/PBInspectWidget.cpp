@@ -7,13 +7,13 @@
 #include "Components/TextBlock.h"
 
 
-void UPBInspectWidget::ShowDialogueWidget(FString DialogueText, FName Speaker)
+void UPBInspectWidget::ShowDialogueWidget(const FString& DialogueText, FName Speaker) const
 {
 	DialogueWidget->ShowDialogue(DialogueText, Speaker);
 	DialogueWidget->SetVisibility(ESlateVisibility::Visible);
 }
 
-void UPBInspectWidget::VisibilityToggleDialogue()
+void UPBInspectWidget::VisibilityToggleDialogue() const
 {
 	if (DialogueWidget->GetVisibility() == ESlateVisibility::Visible)
 	{

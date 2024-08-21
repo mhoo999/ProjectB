@@ -12,6 +12,7 @@ class UPBActionComponent;
 class UCameraComponent;
 class UInputMappingContext;
 
+// Input delegate
 DECLARE_MULTICAST_DELEGATE_OneParam(FInputDelegate, UInputComponent*);
 
 UCLASS()
@@ -22,6 +23,7 @@ class PROJECTB_API APBPlayerPawn : public APawn
 public:
 	APBPlayerPawn();
 
+	// Input delegate
 	FInputDelegate OnSetupInputDelegate;
 
 protected:

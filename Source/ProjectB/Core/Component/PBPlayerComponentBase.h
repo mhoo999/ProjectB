@@ -24,23 +24,23 @@ protected:
 public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	void InitPlayerController();
+	
 protected:
 	virtual void InitializeComponent() override;
 	
+	virtual void SetupPlayerInput(UInputComponent* PlayerInputComponent);
+
 	UPROPERTY()
 	APBPlayerPawn* PlayerPawn;
 
 	UPROPERTY()
 	APBPlayerController* PlayerController;
-
-	virtual void SetupPlayerInput(UInputComponent* PlayerInputComponent);
-
-	bool bPauseFunction;
 	
-public:
-	void InitPlayerController();
+	bool bPauseFunction;
 
-private:
+	// Basic interaction, camera motion stop function. Delegate from controller
 	UFUNCTION()
 	void ChangePauseFunctionFromController(bool bIsUIOpen);
+	
 };
