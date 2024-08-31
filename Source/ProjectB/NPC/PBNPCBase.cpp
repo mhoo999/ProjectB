@@ -23,6 +23,10 @@ APBNPCBase::APBNPCBase()
 void APBNPCBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Code that looks at the player when it starts
+	// FRotator LookAtRotator = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), FVector(0.f, 0.f, 0.f));
+	// SetActorRotation(LookAtRotator);
 	
 	APBPlayerPawn* Player = Cast<APBPlayerPawn>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	PreviousPlayerCameraRotation = Player->GetCameraRotation();
@@ -32,7 +36,7 @@ void APBNPCBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FaceToPlayerCamera();
+	// FaceToPlayerCamera();
 }
 
 void APBNPCBase::Interact(APlayerController* Controller)
