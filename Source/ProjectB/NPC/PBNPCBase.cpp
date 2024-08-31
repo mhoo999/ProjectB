@@ -36,7 +36,7 @@ void APBNPCBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// FaceToPlayerCamera();
+	FaceToPlayerCamera();
 }
 
 void APBNPCBase::Interact(APlayerController* Controller)
