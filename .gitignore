@@ -1,5 +1,7 @@
 # ProjectB
-
+Content/ProjectB/Resource/*
+Content/Megascans/*
+Content/MSPresets/*
 
 # IntelliJ IDEA
 .idea/
