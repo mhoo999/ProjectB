@@ -43,4 +43,7 @@ private:
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="Settings", meta=(AllowPrivateAccess))
 	UPBCameraComponent* CameraComponent;
+
+public:
+	FRotator GetCameraRotation();
 };

@@ -5,6 +5,7 @@
 
 #include "EnhancedInputSubsystems.h"
 #include "Camera/CameraComponent.h"
+#include "ProjectB/ProjectB.h"
 #include "ProjectB/Core/Component/PBActionComponent.h"
 #include "ProjectB/Core/Component/PBCameraComponent.h"
 
@@ -41,3 +42,9 @@ void APBPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	OnSetupInputDelegate.Broadcast(PlayerInputComponent);
 }
 
+FRotator APBPlayerPawn::GetCameraRotation()
+{
+	FRotator CameraRotation = PlayerCamera->GetComponentRotation();
+	
+	return CameraRotation;
+}

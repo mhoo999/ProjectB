@@ -14,6 +14,7 @@ APBItemBase::APBItemBase()
 	SetRootComponent(MeshComponent);
 	MeshComponent->SetRenderCustomDepth(false);
 	MeshComponent->SetCustomDepthStencilValue(1);
+	MeshComponent->SetCollisionProfileName(TEXT("InteractActor"));
 
 	ItemMesh = MeshComponent->GetStaticMesh();
 	ItemScale = FVector(1.f, 1.f, 1.f);
@@ -22,7 +23,7 @@ APBItemBase::APBItemBase()
 void APBItemBase::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	if (ItemMesh == nullptr)
 	{
 		ItemMesh = MeshComponent->GetStaticMesh();

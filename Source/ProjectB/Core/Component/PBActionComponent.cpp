@@ -112,11 +112,13 @@ void UPBActionComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 				FVector TraceStart = WorldLocation;
 				FVector TraceEnd = TraceStart + (WorldDirection * 1000.0f);
 
+				FName TraceTag = FName(TEXT("InteractTrace"));
+				ECollisionChannel TraceChannel = UCollisionProfile::Get()->ConvertToCollisionChannel(false, 0);
 				FHitResult HitResult;
 				FCollisionQueryParams Params;
 				Params.AddIgnoredActor(GetOwner());
 
-				if (GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, ECC_Visibility, Params))
+				if (GetWorld()->LineTraceSingleByChannel(HitResult, TraceStart, TraceEnd, TraceChannel, Params))
 				{
 					HitActor = Cast<IInteractable>(HitResult.GetActor());
 					

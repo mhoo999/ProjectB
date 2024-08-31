@@ -43,4 +43,19 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="CharacterInfo", meta=(AllowPrivateAccess))
 	FString Dialogue;
 	// ------------------------------
+
+	// ---------- Rotate With Player ----------
+private:
+	bool bIsPlaceOnRight;
+	
+	FRotator PreviousPlayerCameraRotation;
+
+	// A function that determines a position on the screen based on the player
+	void CheckActorPosition();
+
+	// Function to move the actor along the player camera
+	void FaceToPlayerCamera();
+	// ------------------------------
+
+	
 };
